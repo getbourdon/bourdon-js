@@ -1,7 +1,7 @@
 {
-  "name": "@bourdon/conformance",
+  "name": "@getbourdon/conformance",
   "version": "0.1.0",
-  "description": "Language-neutral cross-implementation parity fixtures for Bourdon. Python (pip install bourdon) is the oracle; the @bourdon/* TypeScript mirror asserts against these exact bytes.",
+  "description": "Language-neutral cross-implementation parity fixtures for Bourdon. Python (pip install bourdon) is the oracle; the @getbourdon/* TypeScript mirror asserts against these exact bytes.",
   "license": "Apache-2.0",
   "type": "module",
   "main": "./dist/index.cjs",

@@ -1,7 +1,7 @@
 # bourdon-js
 
 > The TypeScript/JavaScript mirror of [**Bourdon**](https://bourdon.ai) — recognition-first runtime +
-> cross-agent federation memory. The `@bourdon/*` packages on npm.
+> cross-agent federation memory. The `@getbourdon/*` packages on npm.
 
 **Python (`pip install bourdon`) is the oracle.** This monorepo is a *faithful mirror* of it, proven by a
 **cross-implementation parity harness**: the Python repo emits language-neutral fixtures (`conformance/`),
@@ -15,15 +15,15 @@ Most of the AI-agent ecosystem is TS/JS. This makes the whole Bourdon stack real
 
 | Package | License | Mirrors (Python) | Status |
 |---------|---------|------------------|--------|
-| `@bourdon/conformance` | Apache-2.0 | `conformance/` parity fixtures + typed loaders | ✅ scaffolded |
-| `@bourdon/l5` | Apache-2.0 | L5 manifest schema, types, atomic I/O, visibility | planned (P1) |
-| `@bourdon/client` | Apache-2.0 | the L6 federation MCP client | planned (P1) |
-| `@bourdon/recognition` | BUSL-1.1 | recognition contract + runtime + eval | planned (P2) |
-| `@bourdon/redaction` | BUSL-1.1 | credential redaction SSOT + leak audit | planned (P3) |
-| `@bourdon/participants` | BUSL-1.1 | the agent → L5 readers | planned (P4) |
-| `@bourdon/federation` | BUSL-1.1 | L6 store + trust/registry/audit + remote transport | planned (P5) |
-| `@bourdon/mcp-server` | BUSL-1.1 | the L6 MCP server | planned (P6) |
-| `@bourdon/inference` | BUSL-1.1 | inference protocol + llama backend + turn compilers | planned (P7) |
+| `@getbourdon/conformance` | Apache-2.0 | `conformance/` parity fixtures + typed loaders | ✅ scaffolded |
+| `@getbourdon/l5` | Apache-2.0 | L5 manifest schema, types, atomic I/O, visibility | planned (P1) |
+| `@getbourdon/client` | Apache-2.0 | the L6 federation MCP client | planned (P1) |
+| `@getbourdon/recognition` | BUSL-1.1 | recognition contract + runtime + eval | planned (P2) |
+| `@getbourdon/redaction` | BUSL-1.1 | credential redaction SSOT + leak audit | planned (P3) |
+| `@getbourdon/participants` | BUSL-1.1 | the agent → L5 readers | planned (P4) |
+| `@getbourdon/federation` | BUSL-1.1 | L6 store + trust/registry/audit + remote transport | planned (P5) |
+| `@getbourdon/mcp-server` | BUSL-1.1 | the L6 MCP server | planned (P6) |
+| `@getbourdon/inference` | BUSL-1.1 | inference protocol + llama backend + turn compilers | planned (P7) |
 | `bourdon` (CLI) | Apache-2.0 | the `bourdon` CLI | planned (P6) |
 
 **License model:** the wire/interop surface (schema, fixtures, client) is **Apache-2.0** so third parties can
@@ -40,7 +40,7 @@ pnpm typecheck   # tsc -b (project references)
 ```
 
 Requires a sibling checkout of the Python repo at `../bourdon` (the conformance oracle) until
-`@bourdon/conformance` is published. Node ≥ 20. Toolchain: pnpm + tsup + vitest + oxlint + Changesets.
+`@getbourdon/conformance` is published. Node ≥ 20. Toolchain: pnpm + tsup + vitest + oxlint + Changesets.
 
 ## Links
 

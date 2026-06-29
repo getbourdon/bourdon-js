@@ -2,7 +2,7 @@
   "name": "bourdon-js",
   "version": "0.0.0",
   "private": true,
-  "description": "TypeScript/JavaScript mirror of Bourdon — recognition-first runtime + agent federation memory. The @bourdon/* packages. Python (pip install bourdon) is the oracle.",
+  "description": "TypeScript/JavaScript mirror of Bourdon — recognition-first runtime + agent federation memory. The @getbourdon/* packages. Python (pip install bourdon) is the oracle.",
   "homepage": "https://bourdon.ai",
   "repository": { "type": "git", "url": "git+https://github.com/getbourdon/bourdon-js.git" },
   "bugs": { "url": "https://github.com/getbourdon/bourdon-js/issues" },

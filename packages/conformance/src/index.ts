@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 /**
  * Typed loaders for the language-neutral parity fixtures produced by the Python
  * oracle (`~/repos/bourdon/tools/gen_conformance.py`). Python is the source of
- * truth; the @bourdon/* TypeScript mirror asserts against these exact bytes.
+ * truth; the @getbourdon/* TypeScript mirror asserts against these exact bytes.
  *
  * Resolution (Phase 0–1): `BOURDON_CONFORMANCE_DIR` env var, else the sibling
  * Python checkout `../bourdon/conformance` relative to the cwd. Once published,

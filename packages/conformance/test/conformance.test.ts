@@ -10,7 +10,7 @@ import {
   loadRedactionBattery,
 } from "../src/index.js";
 
-describe("@bourdon/conformance", () => {
+describe("@getbourdon/conformance", () => {
   it("loads the manifest including the redaction fixture", () => {
     const manifest = loadManifest();
     expect(manifest.conformance_version).toBeTruthy();
