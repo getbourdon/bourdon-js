@@ -4,21 +4,31 @@
   "private": true,
   "description": "TypeScript/JavaScript mirror of Bourdon — recognition-first runtime + agent federation memory. The @getbourdon/* packages. Python (pip install bourdon) is the oracle.",
   "homepage": "https://bourdon.ai",
-  "repository": { "type": "git", "url": "git+https://github.com/getbourdon/bourdon-js.git" },
-  "bugs": { "url": "https://github.com/getbourdon/bourdon-js/issues" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getbourdon/bourdon-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/getbourdon/bourdon-js/issues"
+  },
   "license": "SEE LICENSE IN each package (Apache-2.0 interop / BUSL-1.1 engine)",
   "packageManager": "pnpm@9.15.0",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "build": "pnpm -r build",
     "test": "vitest run",
     "typecheck": "tsc -b",
     "lint": "oxlint .",
-    "format": "oxfmt ."
+    "format": "oxfmt .",
+    "changeset": "changeset",
+    "version-packages": "changeset version"
   },
   "devDependencies": {
     "tsup": "^8.3.5",
     "typescript": "^5.7.2",
-    "vitest": "^2.1.8"
+    "vitest": "^2.1.8",
+    "@changesets/cli": "^2.27.11"
   }
 }

@@ -1,0 +1,58 @@
+name: release
+
+# Publish to npm via Trusted Publishing (OIDC) — no NPM_TOKEN, no OTP.
+# Trigger: push a tag like `v0.1.1` (after `pnpm changeset version` + commit).
+#
+# One-time setup on npmjs.com, per package (bourdon + each @getbourdon/*):
+#   package → Settings → Trusted Publisher → GitHub Actions
+#     owner=getbourdon  repo=bourdon-js  workflow=release.yml  environment=npm-publish
+# After that, npm verifies the OIDC claim from this workflow and publishes with
+# provenance — no long-lived secret anywhere.
+#
+# Provenance attestation (Sigstore) requires this repo to be PUBLIC.
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+  id-token: write # ← the OIDC token npm verifies against the trusted publisher
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: npm-publish # protect with a required reviewer in repo settings
+    steps:
+      - uses: actions/checkout@v4
+
+      # The conformance parity fixtures live in the Python oracle repo; the vitest
+      # suites read them via BOURDON_CONFORMANCE_DIR. Check it out as the gate.
+      - name: Checkout the Python oracle (conformance fixtures)
+        uses: actions/checkout@v4
+        with:
+          repository: getbourdon/bourdon
+          path: _oracle
+
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: "https://registry.npmjs.org"
+
+      # Trusted Publishing + provenance need a recent npm (>= 11.5.1).
+      - run: npm install -g npm@latest
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm -r build
+      - run: pnpm typecheck
+      - name: Test (parity suites against the oracle fixtures)
+        env:
+          BOURDON_CONFORMANCE_DIR: ${{ github.workspace }}/_oracle/conformance
+        run: pnpm test
+
+      # OIDC: no NPM_TOKEN. pnpm/npm mint the trusted-publisher token at publish
+      # time. publishConfig.provenance:true attaches the Sigstore attestation.
+      - name: Publish (only bumped packages)
+        run: pnpm -r publish --access public --no-git-checks
