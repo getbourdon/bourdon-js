@@ -1,0 +1,41 @@
+{
+  "name": "@getbourdon/l5",
+  "version": "0.1.0",
+  "description": "Bourdon L5 agent-memory manifest: schema-generated types, ajv (2020-12) validation, the visibility model, and the byte-faithful to_dict() + atomic YAML writer. Python (pip install bourdon) is the oracle; this mirror asserts against @getbourdon/conformance fixtures.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./schema/L5_schema.json": "./schema/L5_schema.json"
+  },
+  "files": ["dist", "schema"],
+  "engines": { "node": ">=20" },
+  "publishConfig": { "access": "public", "provenance": true },
+  "homepage": "https://bourdon.ai",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getbourdon/bourdon-js.git",
+    "directory": "packages/l5"
+  },
+  "scripts": {
+    "gen": "json2ts --input schema/L5_schema.json --output src/types.gen.ts --bannerComment \"/* GENERATED from schema/L5_schema.json via json-schema-to-typescript. Do NOT edit by hand: run `pnpm --filter @getbourdon/l5 gen`. */\"",
+    "build": "tsup",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "yaml": "^2.6.1"
+  },
+  "devDependencies": {
+    "@getbourdon/conformance": "workspace:*",
+    "json-schema-to-typescript": "^15.0.4"
+  }
+}
