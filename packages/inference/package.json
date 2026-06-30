@@ -1,0 +1,30 @@
+{
+  "name": "@getbourdon/inference",
+  "version": "0.1.0",
+  "description": "Bourdon inference layer — the backend-neutral InferenceBackend protocol (llama.cpp / Ollama / vLLM), the llama SSE backend, L2 episodic retrieval, and the codex/cursor turn compilers. Python (pip install bourdon) is the oracle.",
+  "license": "BUSL-1.1",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist", "LICENSE", "LICENSE_FAQ.md"],
+  "engines": { "node": ">=20" },
+  "publishConfig": { "access": "public", "provenance": true },
+  "homepage": "https://bourdon.ai",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getbourdon/bourdon-js.git",
+    "directory": "packages/inference"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run"
+  }
+}

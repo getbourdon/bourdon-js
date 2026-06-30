@@ -45,6 +45,8 @@ importers:
         specifier: workspace:*
         version: link:../conformance
 
+  packages/inference: {}
+
   packages/l5:
     dependencies:
       ajv:
