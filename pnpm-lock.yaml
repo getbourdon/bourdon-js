@@ -64,6 +64,34 @@ importers:
         specifier: ^15.0.4
         version: 15.0.4
 
+  packages/mcp-server:
+    dependencies:
+      '@getbourdon/federation':
+        specifier: workspace:*
+        version: link:../federation
+      '@getbourdon/l5':
+        specifier: workspace:*
+        version: link:../l5
+      '@getbourdon/recognition':
+        specifier: workspace:*
+        version: link:../recognition
+      '@getbourdon/redaction':
+        specifier: workspace:*
+        version: link:../redaction
+      '@modelcontextprotocol/sdk':
+        specifier: ^1.29.0
+        version: 1.29.0(zod@4.4.3)
+      yaml:
+        specifier: ^2.6.1
+        version: 2.9.0
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
+    devDependencies:
+      '@getbourdon/conformance':
+        specifier: workspace:*
+        version: link:../conformance
+
   packages/recognition:
     dependencies:
       '@getbourdon/l5':

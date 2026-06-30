@@ -1,0 +1,45 @@
+{
+  "name": "@getbourdon/mcp-server",
+  "version": "0.1.0",
+  "description": "Bourdon L6 MCP server (BUSL-1.1) — the facade over @getbourdon/federation that exposes the federation natively to any MCP-aware agent (Claude Code, Codex, Cursor). Faithful port of core/l6_server.py on @modelcontextprotocol/sdk. WIRE-COMPATIBLE with the Python server BOTH directions: every tool returns JSON-in-TextContent (text = JSON.stringify(payload)) so a Python RemoteL6Client's json.loads(item.text) recovers it. 10 tools + 3 resources, the public/team access_level default split, the Bearer/AsyncLocalStorage auth middleware (empty-Bearer never authenticates, HTTP-bypass -> quarantined fail-closed), stdio-first transport, and the loopback-only non-auth bind refusal. Python (pip install bourdon) is the oracle; asserts against @getbourdon/conformance mcp_snapshots.",
+  "license": "BUSL-1.1",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "bourdon-l6-server": "./dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist", "LICENSE", "LICENSE_FAQ.md"],
+  "engines": { "node": ">=20" },
+  "publishConfig": { "access": "public", "provenance": true },
+  "homepage": "https://bourdon.ai",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getbourdon/bourdon-js.git",
+    "directory": "packages/mcp-server"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@getbourdon/federation": "workspace:*",
+    "@getbourdon/l5": "workspace:*",
+    "@getbourdon/recognition": "workspace:*",
+    "@getbourdon/redaction": "workspace:*",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "yaml": "^2.6.1",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@getbourdon/conformance": "workspace:*"
+  }
+}

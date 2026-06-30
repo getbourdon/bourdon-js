@@ -6,6 +6,7 @@
     { "path": "./packages/client" },
     { "path": "./packages/recognition" },
     { "path": "./packages/redaction" },
-    { "path": "./packages/federation" }
+    { "path": "./packages/federation" },
+    { "path": "./packages/mcp-server" }
   ]
 }
