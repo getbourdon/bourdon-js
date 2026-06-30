@@ -1,0 +1,42 @@
+{
+  "name": "@getbourdon/participants",
+  "version": "0.1.0",
+  "description": "Bourdon participants — the external-agent → L5 reader layer (BUSL-1.1). Each participant normalizes a foreign agent's native memory store into a visibility-filtered, redacted L5 manifest: read-only SQLite readers (better-sqlite3 mode=ro: hermes), file/convention readers (claude-code), and network readers (github-copilot) with a TTL JSON cache + lazy AuthProvider that never persists a token. Four invariants enforced in code, not by trust: visibility-filter-before-emission, deterministic exportL5, healthCheck never throws, redact every native string. Discovery is a static TS registry (agent_id-sorted, first-wins, log-and-skip) replacing Python's pkgutil scan. Python (pip install bourdon) is the oracle; this mirror asserts against @getbourdon/conformance native_stores fixtures.",
+  "license": "BUSL-1.1",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist", "LICENSE", "LICENSE_FAQ.md"],
+  "engines": { "node": ">=20" },
+  "publishConfig": { "access": "public", "provenance": true },
+  "homepage": "https://bourdon.ai",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getbourdon/bourdon-js.git",
+    "directory": "packages/participants"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@getbourdon/l5": "workspace:*",
+    "@getbourdon/redaction": "workspace:*",
+    "yaml": "^2.6.1"
+  },
+  "optionalDependencies": {
+    "better-sqlite3": "^12.2.0"
+  },
+  "devDependencies": {
+    "@getbourdon/conformance": "workspace:*",
+    "@types/better-sqlite3": "^7.6.12"
+  }
+}
