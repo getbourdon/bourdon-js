@@ -1,6 +1,6 @@
 {
   "name": "@getbourdon/inference",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Bourdon inference layer — the backend-neutral InferenceBackend protocol (llama.cpp / Ollama / vLLM), the llama SSE backend, L2 episodic retrieval, and the codex/cursor turn compilers. Python (pip install bourdon) is the oracle.",
   "license": "BUSL-1.1",
   "type": "module",

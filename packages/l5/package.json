@@ -1,6 +1,6 @@
 {
   "name": "@getbourdon/l5",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Bourdon L5 agent-memory manifest: schema-generated types, ajv (2020-12) validation, the visibility model, and the byte-faithful to_dict() + atomic YAML writer. Python (pip install bourdon) is the oracle; this mirror asserts against @getbourdon/conformance fixtures.",
   "license": "Apache-2.0",
   "type": "module",

@@ -1,6 +1,6 @@
 {
   "name": "@getbourdon/federation",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Bourdon L6 federation — the cross-machine trust boundary (BUSL-1.1). In-memory L6Store (visibility-filtered query primitives, async-mutex commitL5, base64url cursors, Promise.allSettled peer fan-out), the single-operator trust registry (bdn_ tokens, sha256 hash-only at rest, constant-time compare, trust tiers, AsyncLocalStorage caller identity), the append-only audit log, quarantined staging, and the RemoteL6Client with the depth-1 federation_hop guard + egress clamps. Security-critical: every invariant is enforced in code, not by trust. Python (pip install bourdon) is the oracle; this mirror asserts against @getbourdon/conformance fed_seed_library/tier_matrix/on_disk fixtures.",
   "license": "BUSL-1.1",
   "type": "module",

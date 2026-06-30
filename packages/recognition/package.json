@@ -1,6 +1,6 @@
 {
   "name": "@getbourdon/recognition",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Bourdon recognition timing core: the synchronous recognition-FIRST runtime (recognition string emitted in ~0ms, lazy-thunk L1 hydration that never blocks/raises), the cross-surface recognition contract (tokenizer/STOPWORDS/MatchTier ladder/confidence buckets/short-name guard), and the precision/recall/F1 eval harness. Python (pip install bourdon) is the oracle; this mirror is the 4th parity engine against @getbourdon/conformance recognition_vectors.",
   "license": "BUSL-1.1",
   "type": "module",
