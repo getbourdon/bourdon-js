@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "@getbourdon/federation": "workspace:*",
+    "@getbourdon/inference": "workspace:*",
     "@getbourdon/l5": "workspace:*",
     "@getbourdon/recognition": "workspace:*",
     "@getbourdon/redaction": "workspace:*",

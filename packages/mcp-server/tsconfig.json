@@ -10,6 +10,7 @@
     { "path": "../l5" },
     { "path": "../recognition" },
     { "path": "../redaction" },
-    { "path": "../federation" }
+    { "path": "../federation" },
+    { "path": "../inference" }
   ]
 }

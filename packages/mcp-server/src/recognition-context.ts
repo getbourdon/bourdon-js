@@ -9,6 +9,7 @@
  */
 
 import { L6Store } from "@getbourdon/federation";
+import { compileCodexTurn, turnBriefToDict } from "@getbourdon/inference";
 import { recognitionFirst } from "@getbourdon/recognition";
 import { redactText } from "@getbourdon/redaction";
 
@@ -107,11 +108,13 @@ export function getDeeperContextForPrompt(
 }
 
 /**
- * The `compile_codex_turn` payload. The P7 turn compiler is not yet ported, and
- * the live Python output is environment-bound (live cwd, git repo name + remote,
- * repo-identity scoring) — not a portable cross-impl parity surface. Until the TS
- * turn compiler lands, this returns the deferred stub that the conformance
- * snapshot pins.
+ * The deferred stub the `mcp_snapshots` conformance fixture pins for
+ * `compile_codex_turn`. Kept for back-compat: the generator special-cases this
+ * tool's snapshot because its live output is environment-bound (resolves the live
+ * cwd, git repo name + remote, repo-identity scoring), so it is NOT a portable
+ * cross-impl parity surface. The real tool now returns a full brief at runtime
+ * (matching the live Python server), so the snapshot test asserts structurally
+ * rather than byte-equal to this stub.
  */
 export const CODEX_TURN_DEFERRED = {
   _status: "deferred",
@@ -119,14 +122,28 @@ export const CODEX_TURN_DEFERRED = {
   reason:
     "compile_codex_turn output is environment-bound (resolves the live cwd, git " +
     "repo name + remote, and repo-identity scoring) and is not a portable " +
-    "cross-impl parity fixture until the TS turn compiler lands (P7). The req " +
-    "pins the tool surface + arg defaults; the res is this deferred stub.",
+    "cross-impl parity fixture. The req pins the tool surface + arg defaults; the " +
+    "res snapshot is this deferred stub.",
 } as const;
 
+/**
+ * Return a Codex turn-scoped recognition brief using this server's store —
+ * delegates to the P7 `@getbourdon/inference` turn compiler (faithful port of
+ * `compile_codex_turn_from_store` in `core/l6_server.py`). The live Python server
+ * returns the same full brief; only the conformance SNAPSHOT is the deferred stub.
+ */
 export function compileCodexTurnFromStore(
-  _store: L6Store,
-  _prompt: string,
-  _opts: { cwd?: string | null; accessLevel?: string; maxItems?: number; maxChars?: number } = {},
+  store: L6Store,
+  prompt: string,
+  opts: { cwd?: string | null; accessLevel?: string; maxItems?: number; maxChars?: number } = {},
 ): Dict {
-  return { ...CODEX_TURN_DEFERRED };
+  const brief = compileCodexTurn(prompt, {
+    cwd: opts.cwd ?? null,
+    libraryPath: store.libraryPath,
+    accessLevel: opts.accessLevel ?? "team",
+    maxItems: opts.maxItems,
+    maxChars: opts.maxChars,
+    delivery: "all",
+  });
+  return turnBriefToDict(brief);
 }

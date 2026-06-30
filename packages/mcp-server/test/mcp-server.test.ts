@@ -132,6 +132,11 @@ describe("snapshot normalizer", () => {
 // ---------------------------------------------------------------------------
 
 describe("mcp_snapshots parity (fed_seed_library)", () => {
+  // compile_codex_turn is intentionally EXCLUDED from byte-equal snapshot parity:
+  // its live output is environment-bound (resolves the live cwd, git repo name +
+  // remote, repo-identity scoring), so the Python generator special-cases its
+  // snapshot to a deferred stub. The real tool now returns a full brief at runtime
+  // (matching the live Python server) — asserted structurally below.
   const TOOLS = [
     "query_agent_memory",
     "list_recent_work",
@@ -141,7 +146,6 @@ describe("mcp_snapshots parity (fed_seed_library)", () => {
     "commit_to_federation",
     "get_cross_agent_summary",
     "prepare_recognition_context",
-    "compile_codex_turn",
     "get_deeper_context",
   ];
 
@@ -166,6 +170,25 @@ describe("mcp_snapshots parity (fed_seed_library)", () => {
       }
     });
   }
+
+  it("compile_codex_turn returns a real turn brief (env-bound; not the deferred stub)", async () => {
+    const { client, cleanup } = await connectedClient();
+    try {
+      const result = await client.callTool({
+        name: "compile_codex_turn",
+        arguments: { prompt: "Bourdon recognition", access_level: "team" },
+      });
+      const payload = firstJsonPayload(result) as Record<string, unknown>;
+      expect(payload.schema_version).toBe("codex-turn-brief/v1");
+      expect(payload._status).toBeUndefined(); // no longer the deferred stub
+      expect(typeof payload.routing).toBe("object");
+      expect(Array.isArray(payload.items)).toBe(true);
+      const routing = payload.routing as Record<string, unknown>;
+      expect(["inject", "observe"]).toContain(routing.mode);
+    } finally {
+      await cleanup();
+    }
+  });
 
   it("prepare_recognition_context carried a numeric recognition_latency_us pre-normalize", async () => {
     const { client, cleanup } = await connectedClient();

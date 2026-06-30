@@ -26,5 +26,17 @@
   "scripts": {
     "build": "tsup",
     "test": "vitest run"
+  },
+  "dependencies": {
+    "@getbourdon/federation": "workspace:*",
+    "@getbourdon/l5": "workspace:*",
+    "@getbourdon/participants": "workspace:*",
+    "@getbourdon/recognition": "workspace:*",
+    "@getbourdon/redaction": "workspace:*",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "yaml": "^2.6.1"
+  },
+  "devDependencies": {
+    "@getbourdon/conformance": "workspace:*"
   }
 }

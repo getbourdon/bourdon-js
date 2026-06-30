@@ -4,5 +4,12 @@
     "rootDir": "src",
     "outDir": "dist"
   },
-  "include": ["src"]
+  "include": ["src"],
+  "references": [
+    { "path": "../l5" },
+    { "path": "../recognition" },
+    { "path": "../redaction" },
+    { "path": "../participants" },
+    { "path": "../federation" }
+  ]
 }

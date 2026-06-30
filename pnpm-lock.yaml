@@ -45,7 +45,33 @@ importers:
         specifier: workspace:*
         version: link:../conformance
 
-  packages/inference: {}
+  packages/inference:
+    dependencies:
+      '@getbourdon/federation':
+        specifier: workspace:*
+        version: link:../federation
+      '@getbourdon/l5':
+        specifier: workspace:*
+        version: link:../l5
+      '@getbourdon/participants':
+        specifier: workspace:*
+        version: link:../participants
+      '@getbourdon/recognition':
+        specifier: workspace:*
+        version: link:../recognition
+      '@getbourdon/redaction':
+        specifier: workspace:*
+        version: link:../redaction
+      '@modelcontextprotocol/sdk':
+        specifier: ^1.29.0
+        version: 1.29.0(zod@4.4.3)
+      yaml:
+        specifier: ^2.6.1
+        version: 2.9.0
+    devDependencies:
+      '@getbourdon/conformance':
+        specifier: workspace:*
+        version: link:../conformance
 
   packages/l5:
     dependencies:
@@ -71,6 +97,9 @@ importers:
       '@getbourdon/federation':
         specifier: workspace:*
         version: link:../federation
+      '@getbourdon/inference':
+        specifier: workspace:*
+        version: link:../inference
       '@getbourdon/l5':
         specifier: workspace:*
         version: link:../l5
