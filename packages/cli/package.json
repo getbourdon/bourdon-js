@@ -1,0 +1,49 @@
+{
+  "name": "bourdon",
+  "version": "0.1.0",
+  "description": "The unscoped `bourdon` CLI — a thin, Apache-2.0 dispatch over the @getbourdon/* engine packages. Faithful command-for-command port of cli/main.py (argparse → commander.js): ~32 top-level nodes / ~78 subparsers, the non-obvious argparse defaults copied exactly, the agents --json tray contract, the non-loopback-bind refusal, and the platform-bound seams. Contains NO engine logic — it only invokes @getbourdon/*, so it is permissively licensed. Python (pip install bourdon) is the oracle.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "bourdon": "dist/bin/bourdon.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist", "LICENSE"],
+  "engines": { "node": ">=20" },
+  "publishConfig": { "access": "public", "provenance": true },
+  "homepage": "https://bourdon.ai",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getbourdon/bourdon-js.git",
+    "directory": "packages/cli"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@getbourdon/client": "workspace:*",
+    "@getbourdon/federation": "workspace:*",
+    "@getbourdon/inference": "workspace:*",
+    "@getbourdon/l5": "workspace:*",
+    "@getbourdon/mcp-server": "workspace:*",
+    "@getbourdon/participants": "workspace:*",
+    "@getbourdon/recognition": "workspace:*",
+    "@getbourdon/redaction": "workspace:*",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "commander": "^12.1.0",
+    "yaml": "^2.6.1"
+  },
+  "devDependencies": {
+    "@getbourdon/conformance": "workspace:*"
+  }
+}

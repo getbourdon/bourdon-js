@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist"
+  },
+  "include": ["src"],
+  "references": [
+    { "path": "../conformance" },
+    { "path": "../l5" },
+    { "path": "../recognition" },
+    { "path": "../redaction" },
+    { "path": "../federation" },
+    { "path": "../mcp-server" },
+    { "path": "../participants" },
+    { "path": "../inference" },
+    { "path": "../client" }
+  ]
+}

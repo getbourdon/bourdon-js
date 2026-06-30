@@ -9,6 +9,7 @@
     { "path": "./packages/federation" },
     { "path": "./packages/mcp-server" },
     { "path": "./packages/participants" },
-    { "path": "./packages/inference" }
+    { "path": "./packages/inference" },
+    { "path": "./packages/cli" }
   ]
 }
