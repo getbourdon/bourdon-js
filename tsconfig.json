@@ -3,6 +3,7 @@
   "references": [
     { "path": "./packages/conformance" },
     { "path": "./packages/l5" },
-    { "path": "./packages/client" }
+    { "path": "./packages/client" },
+    { "path": "./packages/recognition" }
   ]
 }

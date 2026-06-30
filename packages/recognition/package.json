@@ -1,0 +1,37 @@
+{
+  "name": "@getbourdon/recognition",
+  "version": "0.1.0",
+  "description": "Bourdon recognition timing core: the synchronous recognition-FIRST runtime (recognition string emitted in ~0ms, lazy-thunk L1 hydration that never blocks/raises), the cross-surface recognition contract (tokenizer/STOPWORDS/MatchTier ladder/confidence buckets/short-name guard), and the precision/recall/F1 eval harness. Python (pip install bourdon) is the oracle; this mirror is the 4th parity engine against @getbourdon/conformance recognition_vectors.",
+  "license": "BUSL-1.1",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist", "LICENSE", "LICENSE_FAQ.md"],
+  "engines": { "node": ">=20" },
+  "publishConfig": { "access": "public", "provenance": true },
+  "homepage": "https://bourdon.ai",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getbourdon/bourdon-js.git",
+    "directory": "packages/recognition"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@getbourdon/l5": "workspace:*",
+    "yaml": "^2.6.1"
+  },
+  "devDependencies": {
+    "@getbourdon/conformance": "workspace:*"
+  }
+}

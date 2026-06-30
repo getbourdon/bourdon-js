@@ -45,6 +45,19 @@ importers:
         specifier: ^15.0.4
         version: 15.0.4
 
+  packages/recognition:
+    dependencies:
+      '@getbourdon/l5':
+        specifier: workspace:*
+        version: link:../l5
+      yaml:
+        specifier: ^2.6.1
+        version: 2.9.0
+    devDependencies:
+      '@getbourdon/conformance':
+        specifier: workspace:*
+        version: link:../conformance
+
 packages:
 
   '@apidevtools/json-schema-ref-parser@11.9.3':
