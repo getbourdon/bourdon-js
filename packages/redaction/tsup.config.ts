@@ -8,7 +8,7 @@ export default defineConfig({
   // `references`. The main tsconfig.json keeps composite/references for
   // `pnpm typecheck`.
   tsconfig: "tsconfig.build.json",
-  dts: true,
+  dts: { compilerOptions: { composite: false } },
   target: "node20",
   clean: true,
   sourcemap: true,
