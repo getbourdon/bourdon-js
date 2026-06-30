@@ -1,4 +1,8 @@
 {
   "files": [],
-  "references": [{ "path": "./packages/conformance" }, { "path": "./packages/l5" }]
+  "references": [
+    { "path": "./packages/conformance" },
+    { "path": "./packages/l5" },
+    { "path": "./packages/client" }
+  ]
 }
