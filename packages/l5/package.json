@@ -15,9 +15,17 @@
     },
     "./schema/L5_schema.json": "./schema/L5_schema.json"
   },
-  "files": ["dist", "schema"],
-  "engines": { "node": ">=20" },
-  "publishConfig": { "access": "public", "provenance": true },
+  "files": [
+    "dist",
+    "schema"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": false
+  },
   "homepage": "https://bourdon.ai",
   "repository": {
     "type": "git",

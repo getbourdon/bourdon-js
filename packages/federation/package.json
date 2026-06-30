@@ -14,9 +14,18 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist", "LICENSE", "LICENSE_FAQ.md"],
-  "engines": { "node": ">=20" },
-  "publishConfig": { "access": "public", "provenance": true },
+  "files": [
+    "dist",
+    "LICENSE",
+    "LICENSE_FAQ.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": false
+  },
   "homepage": "https://bourdon.ai",
   "repository": {
     "type": "git",

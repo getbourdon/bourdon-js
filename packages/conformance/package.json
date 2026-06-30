@@ -22,7 +22,7 @@
   },
   "publishConfig": {
     "access": "public",
-    "provenance": true
+    "provenance": false
   },
   "homepage": "https://bourdon.ai",
   "repository": {
