@@ -1,0 +1,36 @@
+{
+  "name": "@getbourdon/redaction",
+  "version": "0.1.0",
+  "description": "Bourdon credential-redaction SSOT + federation leak auditor — the security keystone of the TS mirror. 12 keyword + 14 token credential patterns (exact per-pattern case flags), redactText/containsSecret, and the static L5 leak audit (credential + visibility classes). Python (pip install bourdon) is the oracle; this mirror asserts byte-identical against @getbourdon/conformance redaction_battery.json + leak_cases.json.",
+  "license": "BUSL-1.1",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist", "LICENSE", "LICENSE_FAQ.md"],
+  "engines": { "node": ">=20" },
+  "publishConfig": { "access": "public", "provenance": true },
+  "homepage": "https://bourdon.ai",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getbourdon/bourdon-js.git",
+    "directory": "packages/redaction"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "yaml": "^2.6.1"
+  },
+  "devDependencies": {
+    "@getbourdon/conformance": "workspace:*"
+  }
+}
