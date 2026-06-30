@@ -26,6 +26,25 @@ importers:
 
   packages/conformance: {}
 
+  packages/federation:
+    dependencies:
+      '@getbourdon/l5':
+        specifier: workspace:*
+        version: link:../l5
+      '@getbourdon/recognition':
+        specifier: workspace:*
+        version: link:../recognition
+      '@getbourdon/redaction':
+        specifier: workspace:*
+        version: link:../redaction
+      yaml:
+        specifier: ^2.6.1
+        version: 2.9.0
+    devDependencies:
+      '@getbourdon/conformance':
+        specifier: workspace:*
+        version: link:../conformance
+
   packages/l5:
     dependencies:
       ajv:

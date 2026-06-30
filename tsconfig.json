@@ -5,6 +5,7 @@
     { "path": "./packages/l5" },
     { "path": "./packages/client" },
     { "path": "./packages/recognition" },
-    { "path": "./packages/redaction" }
+    { "path": "./packages/redaction" },
+    { "path": "./packages/federation" }
   ]
 }
