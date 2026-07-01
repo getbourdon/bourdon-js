@@ -8,6 +8,7 @@
  *   - file / convention:                          {@link ClaudeCodeParticipant},
  *     {@link CopilotParticipant}, {@link CascadeParticipant}
  *   - network (TTL cache + lazy AuthProvider):     {@link GitHubCopilotParticipant}
+ *   - network + quarantined-class (handshake gate): {@link OpenClawParticipant}
  *
  * Four invariants enforced in code, not by trust: visibility-filter-before-
  * emission, deterministic exportL5, healthCheck never throws, redact every
@@ -15,8 +16,8 @@
  *
  * Python (`pip install bourdon`) is the oracle; this mirror asserts against the
  * @getbourdon/conformance `native_stores` fixtures (output shape only).
- * Still deferred: codex (the ~2.6k-line turn-compiler reader) and openclaw (the
- * quarantined-class network reader) — both land in a follow-on slice.
+ * Still deferred: codex (the ~2.6k-line turn-compiler reader) lands in a
+ * follow-on slice.
  */
 
 // Contract surface: Protocol interface, errors, AgentStore + HealthStatus.
@@ -71,6 +72,12 @@ export { CursorParticipant } from "./readers/cursor.js";
 export { CopilotParticipant } from "./readers/copilot.js";
 export { CopilotCliParticipant } from "./readers/copilot-cli.js";
 export { CascadeParticipant } from "./readers/cascade.js";
+export {
+  OpenClawParticipant,
+  OpenClawApiClient,
+  verifyInstance,
+  MIN_PATCHED_VERSION,
+} from "./readers/openclaw.js";
 
 // Discovery (static registry).
 export {

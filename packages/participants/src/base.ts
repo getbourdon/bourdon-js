@@ -80,6 +80,14 @@ export interface BourdonParticipant {
   /** Human-friendly label (e.g. "GitHub Copilot"). Optional. */
   displayName?: string;
 
+  /** Quarantined-class marker (Python `QUARANTINED_CLASS`). When true, the CLI
+   * requires `--i-understand-the-risk` to register the agent trusted, and its
+   * exports are staged for operator review rather than written to the live
+   * store (spec D6: quarantine follows the content, not the invoker). Absent =
+   * a normal, non-quarantined participant. Read by `bourdon agent add/set-tier`
+   * (cli/src/commands/federation.ts). */
+  quarantinedClass?: boolean;
+
   /** Confirm the native store exists; return metadata. Throws
    * {@link ParticipantDiscoveryError} when missing/unreadable. */
   discover(): AgentStore;

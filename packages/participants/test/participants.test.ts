@@ -195,4 +195,19 @@ describe("contract invariants", () => {
     expect(ids).toContain("claude-code");
     expect(ids).toContain("github-copilot");
   });
+
+  it("openclaw is discovered and marked quarantinedClass; no other reader is", () => {
+    // Guards the security gate: `bourdon agent add openclaw --tier trusted`
+    // refuses without --i-understand-the-risk ONLY because the reader exposes
+    // this marker under the exact name the CLI reads (base.ts `quarantinedClass`).
+    // A silent producer/consumer field-name drift here disables the gate.
+    const found = discoverParticipants();
+    const openclaw = found.find((r) => r.agentId === "openclaw");
+    expect(openclaw, "openclaw must be discoverable").toBeDefined();
+    expect(openclaw?.quarantinedClass).toBe(true);
+    const otherQuarantined = found.filter(
+      (r) => r.agentId !== "openclaw" && r.quarantinedClass === true,
+    );
+    expect(otherQuarantined.map((r) => r.agentId)).toEqual([]);
+  });
 });

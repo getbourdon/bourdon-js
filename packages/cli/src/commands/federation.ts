@@ -20,11 +20,11 @@ import { discoverParticipants } from "@getbourdon/participants";
 import type { Dict } from "../util.js";
 
 /** Whether a discovered participant declares itself quarantined-class (e.g.
- * OpenClaw). None of the TS first-party readers are; the openclaw reader ships
- * as a separate plugin. Faithfully checked rather than hard-coded false. */
+ * OpenClaw, the network-shaped reader in @getbourdon/participants). Read from
+ * the `quarantinedClass` contract marker rather than hard-coded. */
 function isQuarantinedClass(agentId: string): boolean {
   for (const p of discoverParticipants()) {
-    if (p.agentId === agentId && (p as { quarantinedClass?: boolean }).quarantinedClass === true) {
+    if (p.agentId === agentId && p.quarantinedClass === true) {
       return true;
     }
   }

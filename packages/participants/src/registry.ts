@@ -23,6 +23,7 @@ import { CopilotCliParticipant } from "./readers/copilot-cli.js";
 import { CursorParticipant } from "./readers/cursor.js";
 import { GitHubCopilotParticipant } from "./readers/github-copilot.js";
 import { HermesParticipant } from "./readers/hermes.js";
+import { OpenClawParticipant } from "./readers/openclaw.js";
 
 /** A zero-arg-constructible participant class. */
 export type ParticipantCtor = new () => BourdonParticipant;
@@ -30,8 +31,9 @@ export type ParticipantCtor = new () => BourdonParticipant;
 /**
  * The first-party reader registry. Order here is irrelevant — discovery sorts by
  * `agentId`. (cursor / copilot-cli are the heavier SQLite readers; copilot is the
- * convention-file reader; cascade reads Windsurf. codex — the ~2.6k-line
- * turn-compiler reader — is still deferred.)
+ * convention-file reader; cascade reads Windsurf; openclaw is the quarantined-
+ * class network reader. codex — the ~2.6k-line turn-compiler reader — is still
+ * deferred.)
  */
 export const FIRST_PARTY: ParticipantCtor[] = [
   CascadeParticipant as unknown as ParticipantCtor,
@@ -41,6 +43,7 @@ export const FIRST_PARTY: ParticipantCtor[] = [
   CursorParticipant as unknown as ParticipantCtor,
   GitHubCopilotParticipant as unknown as ParticipantCtor,
   HermesParticipant as unknown as ParticipantCtor,
+  OpenClawParticipant as unknown as ParticipantCtor,
 ];
 
 /** Minimal logger so a skipped participant is visible without a dep. */
