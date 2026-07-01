@@ -1,0 +1,55 @@
+{
+  "_doc": "Synthetic bdn_ tokens (fragment arrays -- join at load, NEVER a real secret) + the oracle authenticate() result against on_disk/federation.yaml. Oracle: FederationRegistry.authenticate (sha256 of the joined token, constant-time compare; revoked rows and the empty token resolve to null). The TS parser must reproduce each `expect`.",
+  "registry_file": "federation.yaml",
+  "vectors": [
+    {
+      "name": "trusted_member",
+      "token_fragments": [
+        "bdn_",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      ],
+      "expect": {
+        "agent_id": "claude-code",
+        "tier": "trusted",
+        "grants": []
+      }
+    },
+    {
+      "name": "quarantined_member",
+      "token_fragments": [
+        "bdn_",
+        "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      ],
+      "expect": {
+        "agent_id": "openclaw",
+        "tier": "quarantined",
+        "grants": [
+          "claude-code"
+        ]
+      }
+    },
+    {
+      "name": "revoked_member",
+      "token_fragments": [
+        "bdn_",
+        "cccccccccccccccccccccccccccccccccccccccccccccccc"
+      ],
+      "expect": null
+    },
+    {
+      "name": "unknown_token",
+      "token_fragments": [
+        "bdn_",
+        "ffffffffffffffffffffffffffffffffffffffffffffffff"
+      ],
+      "expect": null
+    },
+    {
+      "name": "empty_token",
+      "token_fragments": [
+        ""
+      ],
+      "expect": null
+    }
+  ]
+}

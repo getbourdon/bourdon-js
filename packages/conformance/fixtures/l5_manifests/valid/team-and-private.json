@@ -1,0 +1,51 @@
+{
+  "spec_version": "0.1",
+  "agent": {
+    "id": "clair",
+    "type": "note-capture"
+  },
+  "last_updated": "2026-06-29T12:00:00+00:00",
+  "known_entities": [
+    {
+      "name": "Quarterly Revenue",
+      "type": "concept",
+      "tags": [
+        "financial"
+      ],
+      "summary": "Q2 numbers.",
+      "visibility": "private"
+    },
+    {
+      "name": "Roadmap",
+      "type": "concept",
+      "tags": [
+        "team"
+      ],
+      "visibility": "team"
+    },
+    {
+      "name": "Public Blog",
+      "type": "site",
+      "visibility": "public"
+    }
+  ],
+  "recent_sessions": [
+    {
+      "date": "2026-06-27",
+      "visibility": "private"
+    },
+    {
+      "date": "2026-06-28",
+      "visibility": "team"
+    }
+  ],
+  "visibility_policy": {
+    "default": "team",
+    "private_tags": [
+      "financial"
+    ],
+    "team_tags": [
+      "team"
+    ]
+  }
+}

@@ -1,0 +1,229 @@
+{
+  "_doc": "Cross-impl federation leak-audit parity. Oracle = core.leak_audit.audit_manifest. Each case feeds `manifest` through the auditor; `expected_findings` pins [{kind, location}] in the oracle's emission order (visibility entities, visibility sessions, then the total credential walk). kind in {'credential','visibility'}; location is a json-path like 'known_entities[0].summary'. audit_manifest NEVER raises -- garbage manifests yield []. Credential cases use keyword-shaped triggers only; no token literal is committed.",
+  "audit_schema_version": "federation-leak-audit/v1",
+  "private_tag_families": [
+    "credential",
+    "family",
+    "financial",
+    "health",
+    "legal",
+    "personal",
+    "private",
+    "secret"
+  ],
+  "cases": [
+    {
+      "name": "credential_in_summary",
+      "manifest": {
+        "known_entities": [
+          {
+            "name": "API",
+            "summary": "the service_role key for supabase",
+            "visibility": "team"
+          }
+        ]
+      },
+      "expected_findings": [
+        {
+          "kind": "credential",
+          "location": "known_entities[0].summary"
+        }
+      ]
+    },
+    {
+      "name": "credential_in_files_touched",
+      "manifest": {
+        "recent_sessions": [
+          {
+            "date": "2026-06-20",
+            "files_touched": [
+              "src/app.ts",
+              "config/.env"
+            ]
+          }
+        ]
+      },
+      "expected_findings": [
+        {
+          "kind": "credential",
+          "location": "recent_sessions[0].files_touched[1]"
+        }
+      ]
+    },
+    {
+      "name": "credential_in_role_narrative",
+      "manifest": {
+        "agent": {
+          "id": "x",
+          "type": "code-assistant",
+          "role_narrative": "rotate the api_key before every deploy"
+        }
+      },
+      "expected_findings": [
+        {
+          "kind": "credential",
+          "location": "agent.role_narrative"
+        }
+      ]
+    },
+    {
+      "name": "credential_in_top_level_capabilities",
+      "manifest": {
+        "capabilities": [
+          "state_db",
+          "the bearer token is read from .env"
+        ]
+      },
+      "expected_findings": [
+        {
+          "kind": "credential",
+          "location": "capabilities[1]"
+        }
+      ]
+    },
+    {
+      "name": "private_entity_explicit",
+      "manifest": {
+        "known_entities": [
+          {
+            "name": "SecretProj",
+            "type": "project",
+            "visibility": "private"
+          }
+        ]
+      },
+      "expected_findings": [
+        {
+          "kind": "visibility",
+          "location": "known_entities[0]"
+        }
+      ]
+    },
+    {
+      "name": "private_tag_family_entity",
+      "manifest": {
+        "known_entities": [
+          {
+            "name": "Payroll",
+            "type": "concept",
+            "tags": [
+              "financial"
+            ]
+          }
+        ]
+      },
+      "expected_findings": [
+        {
+          "kind": "visibility",
+          "location": "known_entities[0]"
+        }
+      ]
+    },
+    {
+      "name": "private_tagged_session",
+      "manifest": {
+        "recent_sessions": [
+          {
+            "date": "2026-06-20",
+            "tags": [
+              "personal"
+            ]
+          }
+        ]
+      },
+      "expected_findings": [
+        {
+          "kind": "visibility",
+          "location": "recent_sessions[0]"
+        }
+      ]
+    },
+    {
+      "name": "manifest_declared_private_tag",
+      "manifest": {
+        "known_entities": [
+          {
+            "name": "Vault",
+            "type": "project",
+            "tags": [
+              "client-confidential"
+            ]
+          }
+        ],
+        "visibility_policy": {
+          "default": "team",
+          "private_tags": [
+            "client-confidential"
+          ]
+        }
+      },
+      "expected_findings": [
+        {
+          "kind": "visibility",
+          "location": "known_entities[0]"
+        }
+      ]
+    },
+    {
+      "name": "clean_manifest",
+      "manifest": {
+        "known_entities": [
+          {
+            "name": "Bourdon",
+            "type": "project",
+            "summary": "memory federation",
+            "visibility": "team"
+          }
+        ],
+        "recent_sessions": [
+          {
+            "date": "2026-06-20",
+            "key_actions": [
+              "refactored the L6 store"
+            ],
+            "visibility": "team"
+          }
+        ]
+      },
+      "expected_findings": []
+    },
+    {
+      "name": "policy_names_not_self_flagged",
+      "manifest": {
+        "known_entities": [
+          {
+            "name": "Bourdon",
+            "type": "project",
+            "visibility": "team"
+          }
+        ],
+        "visibility_policy": {
+          "default": "team",
+          "private_tags": [
+            "credential",
+            "secret",
+            "password",
+            "private_key"
+          ]
+        }
+      },
+      "expected_findings": []
+    },
+    {
+      "name": "garbage_non_dict_manifest",
+      "manifest": "not a dict",
+      "expected_findings": []
+    },
+    {
+      "name": "garbage_malformed_collections",
+      "manifest": {
+        "known_entities": "nope",
+        "recent_sessions": [
+          null,
+          42
+        ]
+      },
+      "expected_findings": []
+    }
+  ]
+}

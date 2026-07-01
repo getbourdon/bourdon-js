@@ -1,0 +1,24 @@
+{
+  "_doc": "The 10 mcp_snapshots/*.res.json were produced by driving the live create_l6_server tool closures (OPERATOR / trusted, = stdio) over a TEMP copy of this seed library, then normalizing each response. The TS mirror loads the SAME seed and must reproduce every normalized res. Each tool's payload travels the wire as a single TextContent whose .text = json.dumps(payload); the snapshot is the json.loads of that text.",
+  "caller": {
+    "agent_id": "operator",
+    "tier": "trusted"
+  },
+  "deferred": [
+    "compile_codex_turn"
+  ],
+  "seed_library": "fed_seed_library",
+  "tools": [
+    "query_agent_memory",
+    "list_recent_work",
+    "find_entity",
+    "list_agents",
+    "export_agents",
+    "commit_to_federation",
+    "get_cross_agent_summary",
+    "prepare_recognition_context",
+    "compile_codex_turn",
+    "get_deeper_context"
+  ],
+  "transport": "in-process (create_l6_server tool closures); wire-equivalent to stdio / streamable-HTTP JSON-in-TextContent"
+}

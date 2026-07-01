@@ -1,0 +1,24 @@
+{
+  "_doc": "Participant parity fixtures: external-agent native store -> the REAL participant.export_l5() -> its to_dict(), pinned as expected_l5.json. ONLY the export_l5 OUTPUT SHAPE is the contract (internal scraping is not). agent.last_updated (+ claude_code's agent.instance) are FROZEN to fixed valid values; every other field is a pure function of the seeded store. Readers redact native strings themselves -- seeds use keyword-only credential triggers so no token literal lands in a store fixture. Each expected_l5 validates against L5_schema.json.",
+  "frozen_fields": {
+    "last_updated": "2026-06-29T00:00:00+00:00",
+    "agent.instance": "conformance-host"
+  },
+  "readers": {
+    "hermes": {
+      "category": "sqlite",
+      "store": "store/.hermes/ (state.db sessions + memories/*.md)",
+      "reads": "non-archived sessions + project-from-cwd entities + memory.md/user.md facts; redacts memory lines; team default"
+    },
+    "claude_code": {
+      "category": "file",
+      "store": "store/{brain,auto_memory,knowledge_graph}/",
+      "reads": "PROJECTS/*/OVERVIEW.md + LOG/*.md + auto-memory frontmatter + KG jsonl, deduped/sorted; person + credential entities filtered as private"
+    },
+    "github_copilot": {
+      "category": "network",
+      "store": "cache/github-copilot/payload.json (TTL cache)",
+      "reads": "offline-from-cache (infinite TTL, no token); PR items -> sessions + repository entities; redacts PR titles"
+    }
+  }
+}

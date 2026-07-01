@@ -45,6 +45,14 @@ jobs:
       - run: npm install -g npm@latest
 
       - run: pnpm install --frozen-lockfile
+
+      # Refresh @getbourdon/conformance's vendored fixtures from the freshly
+      # checked-out oracle so the published tarball is never stale.
+      - name: Sync conformance fixtures from the oracle
+        env:
+          BOURDON_CONFORMANCE_DIR: ${{ github.workspace }}/_oracle/conformance
+        run: pnpm --filter @getbourdon/conformance sync-fixtures
+
       - run: pnpm -r build
       - run: pnpm typecheck
       - name: Test (parity suites against the oracle fixtures)

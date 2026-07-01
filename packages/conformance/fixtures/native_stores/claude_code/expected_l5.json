@@ -1,0 +1,72 @@
+{
+  "spec_version": "0.1",
+  "agent": {
+    "id": "claude-code",
+    "type": "code-assistant",
+    "instance": "conformance-host",
+    "spec_version_compat": ">=0.1",
+    "role_narrative": "Agentic manager and code-assistant. Coordinates the RADLAB agent fleet, reviews PRs, and consults on architectural decisions. Capable of authoring code but typically reviews + delegates to specialised code-assistants like Codex for prime-code execution."
+  },
+  "last_updated": "2026-06-29T00:00:00+00:00",
+  "capabilities": [
+    "auto_memory",
+    "claude_brain",
+    "knowledge_graph"
+  ],
+  "recent_sessions": [
+    {
+      "date": "2026-06-28",
+      "key_actions": [
+        "Wired the native_stores conformance family and validated the fixtures."
+      ],
+      "files_touched": [
+        "LOG/2026-06-28-pc.md"
+      ]
+    }
+  ],
+  "known_entities": [
+    {
+      "name": "Bourdon",
+      "type": "project",
+      "summary": "Cross-agent memory federation substrate. L5 manifests + L6 library."
+    },
+    {
+      "name": "Clyde",
+      "type": "project",
+      "summary": "Local AI assistant entity.",
+      "tags": [
+        "infra"
+      ]
+    },
+    {
+      "name": "OldThing",
+      "type": "project",
+      "summary": "A retired experiment.",
+      "tags": [
+        "archived"
+      ]
+    },
+    {
+      "name": "OMNIvour",
+      "type": "project",
+      "summary": "File conversion app.",
+      "tags": [
+        "project"
+      ]
+    }
+  ],
+  "visibility_policy": {
+    "default": "public",
+    "private_tags": [
+      "personal",
+      "financial",
+      "credential",
+      "health",
+      "family",
+      "legal"
+    ],
+    "team_tags": [
+      "internal-roadmap"
+    ]
+  }
+}

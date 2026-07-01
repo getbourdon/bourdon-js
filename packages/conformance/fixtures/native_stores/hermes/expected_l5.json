@@ -1,0 +1,108 @@
+{
+  "spec_version": "0.1",
+  "agent": {
+    "id": "hermes",
+    "type": "code-assistant",
+    "spec_version_compat": "0.1",
+    "role_narrative": "General-purpose tool-calling assistant (Nous Research). Operates across CLI, TUI, and messaging gateways (Slack/Telegram/Discord/WhatsApp); runs terminal, file, web, and delegation toolsets. Carries durable cross-session memory and a curated skill library. Federates session + memory context, not vendor account."
+  },
+  "last_updated": "2026-06-29T00:00:00+00:00",
+  "capabilities": [
+    "memories_dir",
+    "state_db"
+  ],
+  "recent_sessions": [
+    {
+      "date": "2026-06-19",
+      "cwd": "/projects/bourdon",
+      "project_focus": [
+        "bourdon"
+      ],
+      "key_actions": [
+        "Refactor auth flow",
+        "Tools: patch, read_file, terminal"
+      ],
+      "visibility": "team"
+    },
+    {
+      "date": "2026-06-19",
+      "cwd": "/projects/bourdon",
+      "project_focus": [
+        "bourdon"
+      ],
+      "key_actions": [
+        "Fix flaky tests",
+        "2 tool call(s)"
+      ],
+      "visibility": "team"
+    }
+  ],
+  "known_entities": [
+    {
+      "name": "Bourdon",
+      "type": "project",
+      "aliases": [
+        "bourdon"
+      ],
+      "summary": "Workspace observed across 2 Hermes session(s).",
+      "last_touched": "2026-06-19",
+      "tags": [
+        "hermes-project"
+      ],
+      "visibility": "team"
+    },
+    {
+      "name": "Project uses pytest with xdist",
+      "type": "fact",
+      "summary": "Project uses pytest with xdist",
+      "tags": [
+        "hermes-memory"
+      ],
+      "visibility": "team"
+    },
+    {
+      "name": "[redacted credential-like text]",
+      "type": "fact",
+      "summary": "[redacted credential-like text]",
+      "tags": [
+        "hermes-memory"
+      ],
+      "visibility": "team"
+    },
+    {
+      "name": "Prefers concise answers",
+      "type": "preference",
+      "summary": "Prefers concise answers",
+      "tags": [
+        "hermes-user-memory"
+      ],
+      "visibility": "team"
+    },
+    {
+      "name": "Works in the Pacific timezone",
+      "type": "preference",
+      "summary": "Works in the Pacific timezone",
+      "tags": [
+        "hermes-user-memory"
+      ],
+      "visibility": "team"
+    }
+  ],
+  "visibility_policy": {
+    "default": "team",
+    "private_tags": [
+      "personal",
+      "financial",
+      "credential",
+      "secret",
+      "health",
+      "family",
+      "legal"
+    ],
+    "team_tags": [
+      "hermes-memory",
+      "hermes-session",
+      "hermes-project"
+    ]
+  }
+}

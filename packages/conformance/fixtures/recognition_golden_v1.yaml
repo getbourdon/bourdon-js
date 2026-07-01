@@ -1,0 +1,106 @@
+# Recognition golden dataset — labeled ground truth for the eval harness.
+#
+# Each case is self-contained: it carries its own manifest so the harness has no
+# external dependencies and runs deterministically in CI. Cases deliberately
+# cover the behaviors the runtime must not regress:
+#   - single + multi-entity recognition
+#   - alias matching
+#   - negative controls (must match NOTHING)
+#   - the short-name false-positive guard ("ILTTed" must not match "ILTT")
+#   - visibility filtering (private entities never surface)
+#   - confidence buckets (top-anchor parity contract)
+#
+# Scored by core.recognition_eval. Run:  bourdon recognition eval
+version: recognition-eval/v1
+cases:
+  - id: single-exact
+    prompt: "tell me about Bourdon"
+    manifest:
+      known_entities:
+        - {name: Bourdon, type: project}
+    expected_entities: [Bourdon]
+    expected_confidence: medium
+
+  - id: single-case-insensitive
+    prompt: "what is happening with omnivour today"
+    manifest:
+      known_entities:
+        - {name: OMNIvour, type: project}
+    expected_entities: [OMNIvour]
+
+  - id: alias-match
+    prompt: "any update on if_lift_then_that"
+    manifest:
+      known_entities:
+        - {name: ILTT, type: product, aliases: [if_lift_then_that]}
+    expected_entities: [ILTT]
+
+  - id: multi-entity
+    prompt: "compare Bourdon and OMNIvour for me"
+    manifest:
+      known_entities:
+        - {name: Bourdon, type: project}
+        - {name: OMNIvour, type: project}
+        - {name: Unrelated, type: project}
+    expected_entities: [Bourdon, OMNIvour]
+
+  - id: negative-control-weather
+    prompt: "what's the weather like today"
+    manifest:
+      known_entities:
+        - {name: Bourdon, type: project}
+        - {name: OMNIvour, type: project}
+    expected_entities: []
+
+  - id: negative-control-empty-manifest
+    prompt: "tell me about anything at all"
+    manifest:
+      known_entities: []
+    expected_entities: []
+
+  - id: short-name-guard
+    prompt: "the build ILTTed yesterday and broke"
+    manifest:
+      known_entities:
+        - {name: ILTT, type: product}
+    expected_entities: []
+
+  - id: substring-not-token
+    prompt: "i deployed to a NAS box, the bananas were fine"
+    manifest:
+      known_entities:
+        - {name: NAS, type: hardware}
+    expected_entities: [NAS]
+
+  - id: visibility-private-hidden
+    prompt: "tell me about SecretSauce and PublicProj"
+    access_level: team
+    manifest:
+      known_entities:
+        - {name: PublicProj, type: project}
+        - {name: SecretSauce, type: project, visibility: private}
+    expected_entities: [PublicProj]
+
+  - id: multi-word-entity
+    prompt: "where are we on the Multi Word Project"
+    manifest:
+      known_entities:
+        - {name: Multi Word Project, type: project}
+    expected_entities: [Multi Word Project]
+
+  - id: archived-entity-still-recognized
+    prompt: "remind me what Coolculator was"
+    manifest:
+      known_entities:
+        - {name: Coolculator, type: project, valid_to: "2026-01-01"}
+    expected_entities: [Coolculator]
+
+  - id: three-entities
+    prompt: "status on Alpha, Beta, and Gamma please"
+    manifest:
+      known_entities:
+        - {name: Alpha}
+        - {name: Beta}
+        - {name: Gamma}
+        - {name: Delta}
+    expected_entities: [Alpha, Beta, Gamma]

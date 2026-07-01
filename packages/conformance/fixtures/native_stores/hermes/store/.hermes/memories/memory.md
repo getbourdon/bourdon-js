@@ -1,0 +1,2 @@
+- Project uses pytest with xdist
+- The bearer token is stored in .env

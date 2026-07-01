@@ -1,0 +1,14 @@
+{
+  "spec_version": "0.1",
+  "agent": {
+    "id": "clyde",
+    "type": "note-capture"
+  },
+  "last_updated": "2026-06-29T12:00:00+00:00",
+  "known_entities": [
+    {
+      "name": "X",
+      "visibility": "secret"
+    }
+  ]
+}

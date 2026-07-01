@@ -1,0 +1,24 @@
+{
+  "access_level": "team",
+  "include_private": false,
+  "matches": [
+    {
+      "agents": [
+        "claude-code",
+        "codex"
+      ],
+      "name": "Bourdon",
+      "summaries": {
+        "claude-code": "Cross-agent memory federation (granted side).",
+        "codex": "Federation, codex view."
+      },
+      "tags": [
+        "infra"
+      ],
+      "types": [
+        "project"
+      ]
+    }
+  ],
+  "name": "Bourdon"
+}

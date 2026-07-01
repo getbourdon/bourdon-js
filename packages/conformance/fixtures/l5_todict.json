@@ -1,0 +1,253 @@
+{
+  "_doc": "L5Manifest.to_dict() parity. The TS port rebuilds objects from `input` (declarative dataclass-spec: visibility as a lowercase string, null=None, []=empty list) and asserts toDict()==`expected`. Rules pinned: drop None fields, drop empty-list fields, Visibility enum -> lowercase value, key order = dataclass field order, and VisibilityPolicy.default always emitted (defaults to 'public').",
+  "cases": [
+    {
+      "name": "drops_empty_lists_and_none",
+      "input": {
+        "spec_version": "0.1",
+        "agent": {
+          "id": "clyde",
+          "type": "note-capture",
+          "instance": null
+        },
+        "last_updated": "2026-06-29T12:00:00+00:00",
+        "capabilities": [],
+        "recent_sessions": [],
+        "known_entities": [],
+        "visibility_policy": null
+      },
+      "expected": {
+        "spec_version": "0.1",
+        "agent": {
+          "id": "clyde",
+          "type": "note-capture"
+        },
+        "last_updated": "2026-06-29T12:00:00+00:00"
+      }
+    },
+    {
+      "name": "visibility_lowercased",
+      "input": {
+        "spec_version": "0.1",
+        "agent": {
+          "id": "clair",
+          "type": "note-capture"
+        },
+        "last_updated": "2026-06-29T12:00:00+00:00",
+        "recent_sessions": [
+          {
+            "date": "2026-06-28",
+            "visibility": "team"
+          }
+        ],
+        "known_entities": [
+          {
+            "name": "Secret",
+            "visibility": "private"
+          }
+        ],
+        "visibility_policy": {
+          "default": "public"
+        }
+      },
+      "expected": {
+        "spec_version": "0.1",
+        "agent": {
+          "id": "clair",
+          "type": "note-capture"
+        },
+        "last_updated": "2026-06-29T12:00:00+00:00",
+        "recent_sessions": [
+          {
+            "date": "2026-06-28",
+            "visibility": "team"
+          }
+        ],
+        "known_entities": [
+          {
+            "name": "Secret",
+            "visibility": "private"
+          }
+        ],
+        "visibility_policy": {
+          "default": "public"
+        }
+      }
+    },
+    {
+      "name": "entity_empty_inner_lists_dropped",
+      "input": {
+        "spec_version": "0.1",
+        "agent": {
+          "id": "clyde",
+          "type": "note-capture"
+        },
+        "last_updated": "2026-06-29T12:00:00+00:00",
+        "known_entities": [
+          {
+            "name": "Bourdon",
+            "type": "project",
+            "summary": "Federation layer.",
+            "aliases": [],
+            "tags": []
+          }
+        ]
+      },
+      "expected": {
+        "spec_version": "0.1",
+        "agent": {
+          "id": "clyde",
+          "type": "note-capture"
+        },
+        "last_updated": "2026-06-29T12:00:00+00:00",
+        "known_entities": [
+          {
+            "name": "Bourdon",
+            "type": "project",
+            "summary": "Federation layer."
+          }
+        ]
+      }
+    },
+    {
+      "name": "policy_default_injected",
+      "input": {
+        "spec_version": "0.1",
+        "agent": {
+          "id": "clyde",
+          "type": "note-capture"
+        },
+        "last_updated": "2026-06-29T12:00:00+00:00",
+        "visibility_policy": {}
+      },
+      "expected": {
+        "spec_version": "0.1",
+        "agent": {
+          "id": "clyde",
+          "type": "note-capture"
+        },
+        "last_updated": "2026-06-29T12:00:00+00:00",
+        "visibility_policy": {
+          "default": "public"
+        }
+      }
+    },
+    {
+      "name": "full_key_order",
+      "input": {
+        "spec_version": "0.1",
+        "agent": {
+          "id": "claude-code",
+          "type": "code-assistant",
+          "instance": "pc-threadripper",
+          "spec_version_compat": ">=0.1",
+          "role_narrative": "Lead code-assistant."
+        },
+        "last_updated": "2026-06-29T12:00:00+00:00",
+        "capabilities": [
+          "code-read",
+          "code-write"
+        ],
+        "recent_sessions": [
+          {
+            "date": "2026-06-28",
+            "cwd": "/repo",
+            "project_focus": [
+              "bourdon"
+            ],
+            "key_actions": [
+              "ported l5"
+            ],
+            "files_touched": [
+              "a.py"
+            ],
+            "visibility": "public"
+          }
+        ],
+        "known_entities": [
+          {
+            "name": "Bourdon",
+            "type": "project",
+            "aliases": [
+              "NeuroLayer"
+            ],
+            "summary": "Federation.",
+            "last_touched": "2026-06-29",
+            "tags": [
+              "infra"
+            ],
+            "visibility": "team",
+            "valid_from": "2026-01-01",
+            "valid_to": "2026-12-31"
+          }
+        ],
+        "visibility_policy": {
+          "default": "public",
+          "private_tags": [
+            "financial"
+          ],
+          "team_tags": [
+            "team"
+          ]
+        }
+      },
+      "expected": {
+        "spec_version": "0.1",
+        "agent": {
+          "id": "claude-code",
+          "type": "code-assistant",
+          "instance": "pc-threadripper",
+          "spec_version_compat": ">=0.1",
+          "role_narrative": "Lead code-assistant."
+        },
+        "last_updated": "2026-06-29T12:00:00+00:00",
+        "capabilities": [
+          "code-read",
+          "code-write"
+        ],
+        "recent_sessions": [
+          {
+            "date": "2026-06-28",
+            "cwd": "/repo",
+            "project_focus": [
+              "bourdon"
+            ],
+            "key_actions": [
+              "ported l5"
+            ],
+            "files_touched": [
+              "a.py"
+            ],
+            "visibility": "public"
+          }
+        ],
+        "known_entities": [
+          {
+            "name": "Bourdon",
+            "type": "project",
+            "aliases": [
+              "NeuroLayer"
+            ],
+            "summary": "Federation.",
+            "last_touched": "2026-06-29",
+            "tags": [
+              "infra"
+            ],
+            "visibility": "team",
+            "valid_from": "2026-01-01",
+            "valid_to": "2026-12-31"
+          }
+        ],
+        "visibility_policy": {
+          "default": "public",
+          "private_tags": [
+            "financial"
+          ],
+          "team_tags": [
+            "team"
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,448 @@
+{
+  "_doc": "Cross-impl recognition parity. Python is the oracle. tier_vectors: best_match_tier(prompt,names).name + TIER-ONLY recognition_confidence(prompt,names). confidence_buckets: normalized_confidence(tier, n_anchor_terms/cwd_hit/recency_fresh) -- pins the 0.45 and 0.80 bucket edges. recognition_strings: recognition_first(prompt,manifest,access_level) end-to-end (detect + build_recognition_string + visibility + archived suffix).",
+  "tier_vectors": [
+    {
+      "prompt": "Bourdon",
+      "names": [
+        "bourdon"
+      ],
+      "tier": "EXACT",
+      "confidence": "high"
+    },
+    {
+      "prompt": "tell me about Bourdon",
+      "names": [
+        "Bourdon"
+      ],
+      "tier": "NAME_SUBSTRING",
+      "confidence": "medium"
+    },
+    {
+      "prompt": "how is ILTT going",
+      "names": [
+        "ILTT"
+      ],
+      "tier": "NAME_SUBSTRING",
+      "confidence": "medium"
+    },
+    {
+      "prompt": "we ILTTed the build",
+      "names": [
+        "ILTT"
+      ],
+      "tier": "NONE",
+      "confidence": "none"
+    },
+    {
+      "prompt": "pick a category",
+      "names": [
+        "cat"
+      ],
+      "tier": "NONE",
+      "confidence": "none"
+    },
+    {
+      "prompt": "the federation substrate work",
+      "names": [
+        "Bourdon federation engine"
+      ],
+      "tier": "TOKEN_OVERLAP",
+      "confidence": "low"
+    },
+    {
+      "prompt": "the federation memory substrate",
+      "names": [
+        "Bourdon federation memory"
+      ],
+      "tier": "TOKEN_OVERLAP",
+      "confidence": "low"
+    },
+    {
+      "prompt": "we shipped DINOs Chess tonight",
+      "names": [
+        "DINOs Chess"
+      ],
+      "tier": "NAME_SUBSTRING",
+      "confidence": "medium"
+    },
+    {
+      "prompt": "checkers tonight",
+      "names": [
+        "DINOs Chess",
+        "checkers"
+      ],
+      "tier": "NAME_SUBSTRING",
+      "confidence": "medium"
+    },
+    {
+      "prompt": "completely unrelated words",
+      "names": [
+        "Bourdon"
+      ],
+      "tier": "NONE",
+      "confidence": "none"
+    },
+    {
+      "prompt": "i deployed to a NAS box, the bananas were fine",
+      "names": [
+        "NAS"
+      ],
+      "tier": "NAME_SUBSTRING",
+      "confidence": "medium"
+    },
+    {
+      "prompt": "where are we on the Multi Word Project",
+      "names": [
+        "Multi Word Project"
+      ],
+      "tier": "NAME_SUBSTRING",
+      "confidence": "medium"
+    }
+  ],
+  "confidence_buckets": [
+    {
+      "tier": "NONE",
+      "n_anchor_terms": 1,
+      "cwd_hit": false,
+      "recency_fresh": false,
+      "bucket": "none"
+    },
+    {
+      "tier": "TOKEN_OVERLAP",
+      "n_anchor_terms": 1,
+      "cwd_hit": false,
+      "recency_fresh": false,
+      "bucket": "low"
+    },
+    {
+      "tier": "TOKEN_OVERLAP",
+      "n_anchor_terms": 2,
+      "cwd_hit": false,
+      "recency_fresh": false,
+      "bucket": "medium"
+    },
+    {
+      "tier": "TOKEN_SUBSEQUENCE",
+      "n_anchor_terms": 1,
+      "cwd_hit": false,
+      "recency_fresh": false,
+      "bucket": "medium"
+    },
+    {
+      "tier": "NAME_SUBSTRING",
+      "n_anchor_terms": 1,
+      "cwd_hit": false,
+      "recency_fresh": false,
+      "bucket": "medium"
+    },
+    {
+      "tier": "NAME_SUBSTRING",
+      "n_anchor_terms": 1,
+      "cwd_hit": false,
+      "recency_fresh": true,
+      "bucket": "high"
+    },
+    {
+      "tier": "NAME_SUBSTRING",
+      "n_anchor_terms": 1,
+      "cwd_hit": true,
+      "recency_fresh": false,
+      "bucket": "high"
+    },
+    {
+      "tier": "EXACT",
+      "n_anchor_terms": 1,
+      "cwd_hit": false,
+      "recency_fresh": false,
+      "bucket": "high"
+    },
+    {
+      "tier": "TOKEN_OVERLAP",
+      "n_anchor_terms": 2,
+      "cwd_hit": true,
+      "recency_fresh": true,
+      "bucket": "medium"
+    }
+  ],
+  "recognition_strings": [
+    {
+      "name": "single_with_type",
+      "prompt": "tell me about Bourdon",
+      "manifest": {
+        "known_entities": [
+          {
+            "name": "Bourdon",
+            "type": "project"
+          }
+        ]
+      },
+      "access_level": "team",
+      "matched_names": [
+        "Bourdon"
+      ],
+      "recognition": "Oh -- Bourdon, the project.",
+      "confidence": "medium",
+      "entity_confidences": {
+        "Bourdon": "medium"
+      }
+    },
+    {
+      "name": "single_no_type",
+      "prompt": "status on Alpha please",
+      "manifest": {
+        "known_entities": [
+          {
+            "name": "Alpha"
+          }
+        ]
+      },
+      "access_level": "team",
+      "matched_names": [
+        "Alpha"
+      ],
+      "recognition": "Oh -- Alpha.",
+      "confidence": "medium",
+      "entity_confidences": {
+        "Alpha": "medium"
+      }
+    },
+    {
+      "name": "two_matches",
+      "prompt": "compare Bourdon and OMNIvour for me",
+      "manifest": {
+        "known_entities": [
+          {
+            "name": "Bourdon",
+            "type": "project"
+          },
+          {
+            "name": "OMNIvour",
+            "type": "project"
+          },
+          {
+            "name": "Unrelated",
+            "type": "project"
+          }
+        ]
+      },
+      "access_level": "team",
+      "matched_names": [
+        "Bourdon",
+        "OMNIvour"
+      ],
+      "recognition": "You're asking about Bourdon and OMNIvour -- I have both.",
+      "confidence": "medium",
+      "entity_confidences": {
+        "Bourdon": "medium",
+        "OMNIvour": "medium"
+      }
+    },
+    {
+      "name": "three_matches",
+      "prompt": "status on Alpha, Beta, and Gamma please",
+      "manifest": {
+        "known_entities": [
+          {
+            "name": "Alpha"
+          },
+          {
+            "name": "Beta"
+          },
+          {
+            "name": "Gamma"
+          },
+          {
+            "name": "Delta"
+          }
+        ]
+      },
+      "access_level": "team",
+      "matched_names": [
+        "Alpha",
+        "Beta",
+        "Gamma"
+      ],
+      "recognition": "You're asking about Alpha, Beta, and Gamma -- I have all of those.",
+      "confidence": "medium",
+      "entity_confidences": {
+        "Alpha": "medium",
+        "Beta": "medium",
+        "Gamma": "medium"
+      }
+    },
+    {
+      "name": "short_name_guard",
+      "prompt": "the build ILTTed yesterday and broke",
+      "manifest": {
+        "known_entities": [
+          {
+            "name": "ILTT",
+            "type": "product"
+          }
+        ]
+      },
+      "access_level": "team",
+      "matched_names": [],
+      "recognition": "",
+      "confidence": "none",
+      "entity_confidences": {}
+    },
+    {
+      "name": "substring_not_token",
+      "prompt": "i deployed to a NAS box, the bananas were fine",
+      "manifest": {
+        "known_entities": [
+          {
+            "name": "NAS",
+            "type": "hardware"
+          }
+        ]
+      },
+      "access_level": "team",
+      "matched_names": [
+        "NAS"
+      ],
+      "recognition": "Oh -- NAS, the hardware.",
+      "confidence": "medium",
+      "entity_confidences": {
+        "NAS": "medium"
+      }
+    },
+    {
+      "name": "visibility_private_hidden",
+      "prompt": "tell me about SecretSauce and PublicProj",
+      "manifest": {
+        "known_entities": [
+          {
+            "name": "PublicProj",
+            "type": "project"
+          },
+          {
+            "name": "SecretSauce",
+            "type": "project",
+            "visibility": "private"
+          }
+        ]
+      },
+      "access_level": "team",
+      "matched_names": [
+        "PublicProj"
+      ],
+      "recognition": "Oh -- PublicProj, the project.",
+      "confidence": "medium",
+      "entity_confidences": {
+        "PublicProj": "medium"
+      }
+    },
+    {
+      "name": "archived_valid_to",
+      "prompt": "remind me what Coolculator was",
+      "manifest": {
+        "known_entities": [
+          {
+            "name": "Coolculator",
+            "type": "project",
+            "valid_to": "2026-01-01"
+          }
+        ]
+      },
+      "access_level": "team",
+      "matched_names": [
+        "Coolculator"
+      ],
+      "recognition": "Oh -- Coolculator, the project (archived 2026-01-01).",
+      "confidence": "medium",
+      "entity_confidences": {
+        "Coolculator": "medium"
+      }
+    },
+    {
+      "name": "archived_tag",
+      "prompt": "what about LegacyThing",
+      "manifest": {
+        "known_entities": [
+          {
+            "name": "LegacyThing",
+            "type": "tool",
+            "tags": [
+              "archived"
+            ]
+          }
+        ]
+      },
+      "access_level": "team",
+      "matched_names": [
+        "LegacyThing"
+      ],
+      "recognition": "Oh -- LegacyThing, the tool (archived).",
+      "confidence": "medium",
+      "entity_confidences": {
+        "LegacyThing": "medium"
+      }
+    },
+    {
+      "name": "alias_match",
+      "prompt": "any update on if_lift_then_that",
+      "manifest": {
+        "known_entities": [
+          {
+            "name": "ILTT",
+            "type": "product",
+            "aliases": [
+              "if_lift_then_that"
+            ]
+          }
+        ]
+      },
+      "access_level": "team",
+      "matched_names": [
+        "ILTT"
+      ],
+      "recognition": "Oh -- ILTT, the product.",
+      "confidence": "medium",
+      "entity_confidences": {
+        "ILTT": "medium"
+      }
+    },
+    {
+      "name": "negative_control",
+      "prompt": "what is the weather like today",
+      "manifest": {
+        "known_entities": [
+          {
+            "name": "Bourdon"
+          },
+          {
+            "name": "OMNIvour"
+          }
+        ]
+      },
+      "access_level": "team",
+      "matched_names": [],
+      "recognition": "",
+      "confidence": "none",
+      "entity_confidences": {}
+    },
+    {
+      "name": "multi_word",
+      "prompt": "where are we on the Multi Word Project",
+      "manifest": {
+        "known_entities": [
+          {
+            "name": "Multi Word Project",
+            "type": "project"
+          }
+        ]
+      },
+      "access_level": "team",
+      "matched_names": [
+        "Multi Word Project"
+      ],
+      "recognition": "Oh -- Multi Word Project, the project.",
+      "confidence": "medium",
+      "entity_confidences": {
+        "Multi Word Project": "medium"
+      }
+    }
+  ]
+}

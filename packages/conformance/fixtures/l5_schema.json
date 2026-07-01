@@ -1,0 +1,209 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bourdon.ai/schema/L5_manifest_v0.1.json",
+  "title": "Bourdon L5 Agent Memory Manifest",
+  "description": "A per-agent public memory glossary. L5 is a projection of L0-L4 personal memory into a standardized, agent-readable form with visibility filtering applied. L6 (the federation library) aggregates L5 manifests across agents.",
+  "type": "object",
+  "required": ["spec_version", "agent", "last_updated"],
+  "properties": {
+    "spec_version": {
+      "description": "Bourdon spec version this manifest conforms to (semver). L6 warns when reading a manifest with an incompatible version.",
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+$",
+      "examples": ["0.1"]
+    },
+    "agent": {
+      "type": "object",
+      "required": ["id", "type"],
+      "properties": {
+        "id": {
+          "description": "Unique slug for this agent. Used as the L6 filename and cross-agent reference key.",
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_-]*$",
+          "minLength": 1,
+          "maxLength": 64,
+          "examples": ["clyde", "claude-code", "codex", "clair"]
+        },
+        "type": {
+          "description": "Agent category. Informs L6 query routing and UI grouping.",
+          "type": "string",
+          "enum": [
+            "code-assistant",
+            "note-capture",
+            "local-swarm",
+            "customer-support",
+            "research-assistant",
+            "creative-collaborator",
+            "project-manager",
+            "tutor",
+            "other"
+          ]
+        },
+        "instance": {
+          "description": "Optional machine/deployment identifier. Helps federate memory across multiple instances of the same agent on different machines.",
+          "type": "string",
+          "maxLength": 128,
+          "examples": ["pc-threadripper", "mac-m1max"]
+        },
+        "spec_version_compat": {
+          "description": "Version range of Bourdon specs this manifest is compatible with. Uses npm-style semver ranges. If omitted, assumed equal to spec_version.",
+          "type": "string",
+          "examples": [">=0.1", "^0.1.0"]
+        },
+        "role_narrative": {
+          "description": "Free-text description of the agent's role within a fleet. Differentiates agents that share the same `type` slug (e.g. multiple code-assistants playing different roles like manager, lead author, debugger, throwaway). Used by L6 to answer 'who should I ask about X?' style queries.",
+          "type": "string",
+          "maxLength": 500,
+          "examples": [
+            "Agentic manager and code-assistant. Coordinates the agent fleet, reviews PRs, and consults on solutions.",
+            "Lead code-assistant. Organizes project code and executes prime code. Consults with Claude on solutions, problems, and issues via PR or Slack #agents channel.",
+            "Code-assistant invoked for debugging, issues, quick fixes, and short-task throwaway sessions.",
+            "General-purpose RADLAB assistant with deep project memory."
+          ]
+        }
+      }
+    },
+    "last_updated": {
+      "description": "ISO 8601 UTC timestamp of when this manifest was last regenerated.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "capabilities": {
+      "description": "Optional list of capabilities this agent offers. Enables L6 queries like 'which agent can analyze images?' Free-text slugs; no central registry (yet).",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 64
+      },
+      "uniqueItems": true,
+      "maxItems": 64,
+      "examples": [
+        ["code-read", "code-write", "web-search", "image-analysis"]
+      ]
+    },
+    "recent_sessions": {
+      "description": "Rolling window of recent sessions. Typical retention: 30 days or 100 sessions, whichever is greater. Older sessions should be rolled up into L3/L4 personal memory and omitted from L5.",
+      "type": "array",
+      "items": { "$ref": "#/$defs/Session" },
+      "maxItems": 500
+    },
+    "known_entities": {
+      "description": "The glossary surface. Each entity is something this agent knows about and can provide context on. L6 uses this for cross-agent entity lookup. Respect visibility_policy when emitting.",
+      "type": "array",
+      "items": { "$ref": "#/$defs/Entity" },
+      "maxItems": 1000
+    },
+    "visibility_policy": {
+      "description": "Default visibility rules applied when an entity does not declare its own visibility.",
+      "type": "object",
+      "properties": {
+        "default": {
+          "$ref": "#/$defs/Visibility"
+        },
+        "private_tags": {
+          "description": "Entity tags that auto-mark the entity as private (overriding any explicit visibility setting).",
+          "type": "array",
+          "items": { "type": "string" },
+          "examples": [["personal", "financial", "credential", "health", "family"]]
+        },
+        "team_tags": {
+          "description": "Entity tags that mark entities as team-visibility (shared with team L6 but not public).",
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "Visibility": {
+      "type": "string",
+      "enum": ["public", "team", "private"],
+      "description": "public = published to all L6 stores | team = team L6 only | private = local L6 only, never federated outward"
+    },
+    "Session": {
+      "type": "object",
+      "required": ["date"],
+      "properties": {
+        "date": {
+          "description": "ISO 8601 date the session occurred (date-only, no time).",
+          "type": "string",
+          "format": "date"
+        },
+        "cwd": {
+          "description": "Working directory of the session. Optional but highly useful for developer-tool participants.",
+          "type": "string",
+          "maxLength": 512
+        },
+        "project_focus": {
+          "description": "Entity IDs the session focused on. Cross-references known_entities.",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "key_actions": {
+          "description": "Brief list of what happened. 1-5 short strings.",
+          "type": "array",
+          "items": { "type": "string", "maxLength": 256 },
+          "maxItems": 10
+        },
+        "files_touched": {
+          "description": "Paths or patterns modified during the session. Optional.",
+          "type": "array",
+          "items": { "type": "string" },
+          "maxItems": 50
+        },
+        "visibility": { "$ref": "#/$defs/Visibility" }
+      }
+    },
+    "Entity": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "description": "Human-readable entity name. Used for L0 keyword matching.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "type": {
+          "description": "Semantic category. Extensible free-text; common values: project, product, person, customer, ticket, concept, compound, draft, site, client, decision.",
+          "type": "string",
+          "maxLength": 64
+        },
+        "aliases": {
+          "description": "Alternative names or abbreviations that should also match for L0 detection.",
+          "type": "array",
+          "items": { "type": "string" },
+          "maxItems": 16
+        },
+        "summary": {
+          "description": "Short description (~1-3 sentences, <500 chars). L6 consumers see this as the entity's 'glossary entry.'",
+          "type": "string",
+          "maxLength": 2000
+        },
+        "last_touched": {
+          "type": "string",
+          "format": "date"
+        },
+        "valid_from": {
+          "description": "ISO 8601 date this entity became active in the agent's worldview. When omitted, the entity has either always been valid or its start date is unknown. L6 queries can filter on this to answer 'what was active in Q1 2026?' style questions. Inspired by Zep's Graphiti temporal validity model.",
+          "type": "string",
+          "format": "date"
+        },
+        "valid_to": {
+          "description": "ISO 8601 date this entity stopped being active. Participants typically populate this when an entity is tagged 'archived' or 'canceled'. Absent (or null) means the entity is still active as of last_updated. Federation queries that filter by current time treat missing valid_to as 'still valid'.",
+          "type": "string",
+          "format": "date"
+        },
+        "tags": {
+          "description": "Free-text tags. Used for visibility_policy.private_tags/team_tags matching and for filtering in L6 queries.",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "visibility": {
+          "$ref": "#/$defs/Visibility",
+          "description": "Overrides visibility_policy.default for this entity. Private entities MUST be omitted from federated L6 stores."
+        }
+      }
+    }
+  }
+}

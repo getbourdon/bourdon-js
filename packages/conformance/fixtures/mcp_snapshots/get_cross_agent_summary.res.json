@@ -1,0 +1,42 @@
+{
+  "agents": [
+    "claude-code",
+    "codex"
+  ],
+  "entities": [
+    {
+      "agents": [
+        "claude-code",
+        "codex"
+      ],
+      "name": "Bourdon",
+      "summaries": {
+        "claude-code": "Cross-agent memory federation (granted side).",
+        "codex": "Federation, codex view."
+      },
+      "tags": [
+        "infra"
+      ],
+      "types": [
+        "project"
+      ]
+    }
+  ],
+  "project": "Bourdon",
+  "recent_sessions": [
+    {
+      "agent": "claude-code",
+      "cwd": "/c/Users/cumul/repos/bourdon",
+      "date": "2026-06-08",
+      "files_touched": [
+        "tools/gen_conformance.py"
+      ],
+      "key_actions": [
+        "wired tier matrix fixtures"
+      ],
+      "project_focus": [
+        "Bourdon"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{"ts": "2026-06-29T00:00:00.000000Z", "agent": "openclaw", "op": "find_entity", "namespace": "claude-code", "decision": "allow"}
+{"ts": "2026-06-29T00:00:01.000000Z", "agent": "openclaw", "op": "query_agent_memory", "namespace": "codex", "decision": "deny", "detail": "namespace 'codex' not granted"}
+{"ts": "2026-06-29T00:00:02.000000Z", "agent": "openclaw", "op": "commit_to_federation", "namespace": "openclaw", "decision": "allow", "detail": "staged"}
+{"ts": "2026-06-29T00:00:03.000000Z", "agent": "operator", "op": "list_agents", "namespace": "*", "decision": "allow"}
+{"ts": "2026-06-29T00:00:04.000000Z", "agent": "openclaw", "op": "get_cross_agent_summary", "namespace": "*", "decision": "deny", "detail": "tier 'quarantined' may not call this tool"}

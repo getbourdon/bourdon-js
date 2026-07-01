@@ -1,0 +1,19 @@
+{
+  "access_level": "team",
+  "confidence": "medium",
+  "hydration_scheduled": true,
+  "include_private": false,
+  "matched_entities": [
+    {
+      "name": "Bourdon",
+      "source_agents": [
+        "claude-code",
+        "codex"
+      ],
+      "type": "project"
+    }
+  ],
+  "prompt": "what about Bourdon",
+  "prompt_context": "Bourdon recognition context\nImmediate recognition: Oh -- Bourdon, the project.\nMatched entities:\n- Bourdon (project) via claude-code, codex: Cross-agent memory federation (granted side).\nUse this as timing-layer context, not as a final answer.",
+  "recognition": "Oh -- Bourdon, the project."
+}

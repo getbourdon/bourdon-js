@@ -1,0 +1,73 @@
+{
+  "agents": [
+    {
+      "capability_count": 2,
+      "freshest_session_date": "2026-06-08",
+      "id": "claude-code",
+      "instance": "pc-threadripper",
+      "last_updated": "<frozen>",
+      "recent_activity": [
+        {
+          "date": "2026-06-08",
+          "key_actions": [
+            "wired tier matrix fixtures"
+          ],
+          "project_focus": [
+            "Bourdon"
+          ],
+          "visibility": "public"
+        },
+        {
+          "date": "2026-06-07",
+          "key_actions": [
+            "team planning"
+          ],
+          "project_focus": [
+            "Roadmap"
+          ],
+          "visibility": "team"
+        }
+      ],
+      "role_narrative": "Lead code-assistant on the federation substrate.",
+      "session_count": 2,
+      "source": "conformance-host",
+      "source_kind": "local",
+      "type": "code-assistant"
+    },
+    {
+      "capability_count": 0,
+      "freshest_session_date": "2026-06-08",
+      "id": "codex",
+      "last_updated": "<frozen>",
+      "recent_activity": [
+        {
+          "date": "2026-06-08",
+          "key_actions": [
+            "codex work"
+          ],
+          "project_focus": [
+            "SecretProj"
+          ],
+          "visibility": "public"
+        },
+        {
+          "date": "2026-06-05",
+          "key_actions": [
+            "codex private"
+          ],
+          "project_focus": [
+            "Internal Notes"
+          ],
+          "visibility": "team"
+        }
+      ],
+      "session_count": 2,
+      "source": "conformance-host",
+      "source_kind": "local",
+      "type": "code-assistant"
+    }
+  ],
+  "generated_from": "<frozen>",
+  "machine": "conformance-host",
+  "schema": "bourdon.agents/v1"
+}

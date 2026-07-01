@@ -1,0 +1,22 @@
+agents:
+  claude-code:
+    created_at: '2026-06-29T00:00:00Z'
+    grants: []
+    revoked: false
+    tier: trusted
+    token_sha256: 80c71ecc7b197ed7bd5bdcd41e42cfe5af208bb098d29fbb9c0b523f13b98b35
+  openclaw:
+    created_at: '2026-06-29T00:00:00Z'
+    grants:
+    - claude-code
+    revoked: false
+    tier: quarantined
+    token_sha256: bf87f09f006e25f14839dbf9e8ebdfa04f5a2a5e50384ab6df00e36d24f3423c
+  retired:
+    created_at: '2026-06-29T00:00:00Z'
+    grants: []
+    revoked: true
+    revoked_at: '2026-06-29T00:05:00Z'
+    tier: trusted
+    token_sha256: 7d65ddc8d41109dad18817a3b193db09185a0dedd066da5438efb530e1cababf
+version: 1

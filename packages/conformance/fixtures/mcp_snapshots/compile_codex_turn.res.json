@@ -1,0 +1,5 @@
+{
+  "_status": "deferred",
+  "reason": "compile_codex_turn output is environment-bound (resolves the live cwd, git repo name + remote, and repo-identity scoring) and is not a portable cross-impl parity fixture until the TS turn compiler lands (P7). The req pins the tool surface + arg defaults; the res is this deferred stub.",
+  "schema_version": "codex-turn-brief/v1"
+}

@@ -1,0 +1,134 @@
+{
+  "_doc": "Fixture-tests the MCP snapshot NORMALIZER itself. Each `normalized` is normalize_snapshot(`raw`) computed by the oracle. Rules: sort object keys (write-time), round floats to 4 dp, drop null + empty-list dict fields, freeze {last_updated, generated_at, generated_from, path} -> '<frozen>', drop latency fields {recognition_latency_us, peer_latencies_us}, decode next_cursor base64 -> {offset:N}. The TS canonicalizer must match each pair.",
+  "cases": [
+    {
+      "_doc": "drops null + empty-list fields (to_dict omission parity)",
+      "normalized": {
+        "kept": "x",
+        "zero": 0
+      },
+      "raw": {
+        "agent": null,
+        "files_touched": [],
+        "kept": "x",
+        "zero": 0
+      }
+    },
+    {
+      "_doc": "rounds floats to 4 dp; bools are untouched",
+      "normalized": {
+        "ok": true,
+        "ratio": 0.1235,
+        "score": 71.6667
+      },
+      "raw": {
+        "ok": true,
+        "ratio": 0.1234567,
+        "score": 71.66666666
+      }
+    },
+    {
+      "_doc": "freezes last_updated / path / generated_from / generated_at",
+      "normalized": {
+        "generated_at": "<frozen>",
+        "generated_from": "<frozen>",
+        "last_updated": "<frozen>",
+        "path": "<frozen>"
+      },
+      "raw": {
+        "generated_at": "2026-06-30T02:59:09Z",
+        "generated_from": "/tmp/x/agents",
+        "last_updated": "2026-06-30T02:59:09.096243+00:00",
+        "path": "/tmp/x/clyde.l5.yaml"
+      }
+    },
+    {
+      "_doc": "drops latency fields wholesale (runtime-dependent)",
+      "normalized": {
+        "confidence": "medium"
+      },
+      "raw": {
+        "confidence": "medium",
+        "peer_latencies_us": {
+          "mac": 9.1
+        },
+        "recognition_latency_us": 140.5
+      }
+    },
+    {
+      "_doc": "decodes a base64 next_cursor to its {offset} payload; null cursor drops",
+      "normalized": {
+        "has_more": true,
+        "next_cursor": {
+          "offset": 2
+        }
+      },
+      "raw": {
+        "has_more": true,
+        "next_cursor": "eyJvZmZzZXQiOjJ9"
+      }
+    },
+    {
+      "_doc": "null next_cursor (last page) is dropped like any other null",
+      "normalized": {
+        "has_more": false
+      },
+      "raw": {
+        "has_more": false,
+        "next_cursor": null
+      }
+    },
+    {
+      "_doc": "nested arrays keep their order; nested null/empty dropped per-field",
+      "normalized": {
+        "sessions": [
+          {
+            "agent": "codex",
+            "project_focus": [
+              "A"
+            ]
+          },
+          {
+            "agent": "claude-code",
+            "project_focus": [
+              "B"
+            ]
+          }
+        ]
+      },
+      "raw": {
+        "sessions": [
+          {
+            "agent": "codex",
+            "cwd": null,
+            "files_touched": [],
+            "project_focus": [
+              "A"
+            ]
+          },
+          {
+            "agent": "claude-code",
+            "project_focus": [
+              "B"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "cursor_fields": [
+    "next_cursor"
+  ],
+  "drop_latency_fields": [
+    "peer_latencies_us",
+    "recognition_latency_us"
+  ],
+  "float_precision": 4,
+  "freeze_fields": [
+    "generated_at",
+    "generated_from",
+    "last_updated",
+    "path"
+  ],
+  "frozen_sentinel": "<frozen>"
+}

@@ -1,0 +1,7 @@
+{
+  "args": {
+    "access_level": "team",
+    "project": "Bourdon"
+  },
+  "tool": "get_cross_agent_summary"
+}

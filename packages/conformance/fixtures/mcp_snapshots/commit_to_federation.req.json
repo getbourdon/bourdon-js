@@ -1,0 +1,19 @@
+{
+  "args": {
+    "agent_id": "clyde",
+    "agent_type": "other",
+    "entities": [
+      {
+        "name": "SnapshotEntity",
+        "summary": "mcp snapshot probe"
+      }
+    ],
+    "mode": "merge",
+    "sessions": [
+      {
+        "date": "2026-06-09"
+      }
+    ]
+  },
+  "tool": "commit_to_federation"
+}

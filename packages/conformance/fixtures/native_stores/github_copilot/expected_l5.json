@@ -1,0 +1,67 @@
+{
+  "spec_version": "0.1",
+  "agent": {
+    "id": "github-copilot",
+    "type": "code-assistant",
+    "instance": "conformance-host",
+    "role_narrative": "Cloud-side GitHub Copilot: PR review and @copilot-authored comments/suggestions that live on github.com, not on the user's machine. Federated via the GitHub REST API rather than a local artifact."
+  },
+  "last_updated": "2026-06-29T00:00:00+00:00",
+  "capabilities": [
+    "github-search",
+    "pull-request-comments"
+  ],
+  "recent_sessions": [
+    {
+      "date": "2026-06-20",
+      "cwd": "github.com/ryan/bourdon",
+      "project_focus": [
+        "ryan/bourdon"
+      ],
+      "key_actions": [
+        "PR #12: Add OAuth login flow"
+      ],
+      "visibility": "team"
+    },
+    {
+      "date": "2026-06-18",
+      "cwd": "github.com/ryan/bourdon",
+      "project_focus": [
+        "ryan/bourdon"
+      ],
+      "key_actions": [
+        "PR #9: [redacted credential-like text]"
+      ],
+      "visibility": "team"
+    }
+  ],
+  "known_entities": [
+    {
+      "name": "ryan/bourdon",
+      "type": "repository",
+      "aliases": [
+        "bourdon"
+      ],
+      "summary": "GitHub repo with Copilot PR activity.",
+      "last_touched": "2026-06-20",
+      "tags": [
+        "github-copilot",
+        "pull-request"
+      ],
+      "visibility": "team"
+    }
+  ],
+  "visibility_policy": {
+    "default": "team",
+    "private_tags": [
+      "personal",
+      "financial",
+      "credential",
+      "secret"
+    ],
+    "team_tags": [
+      "github-copilot",
+      "pull-request"
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "args": {
+    "access_level": "team",
+    "limit": 2,
+    "since": "2026-06-01"
+  },
+  "tool": "list_recent_work"
+}

@@ -1,0 +1,473 @@
+{
+  "_doc": "Cross-impl redaction parity. Loaders join `fragments`. REDACTED sentinel = '[redacted credential-like text]'. benign uses limit=400. case_variants: one probe per TOKEN pattern -- `correct` always redacts; for case_sensitive patterns `wrong` (case-flipped prefix) must NOT redact, for the IGNORECASE patterns (appl_/hf_) `wrong` still redacts. Pins the per-pattern case flag across impls.",
+  "redacted_sentinel": "[redacted credential-like text]",
+  "benign_limit": 400,
+  "secrets": [
+    {
+      "fragments": [
+        "my api_key is QXp9-not-a-real-key"
+      ],
+      "expect_redacted": "[redacted credential-like text]",
+      "expect_contains_secret": true
+    },
+    {
+      "fragments": [
+        "password: hunter2hunter2"
+      ],
+      "expect_redacted": "[redacted credential-like text]",
+      "expect_contains_secret": true
+    },
+    {
+      "fragments": [
+        "uses a bearer token to authenticate"
+      ],
+      "expect_redacted": "[redacted credential-like text]",
+      "expect_contains_secret": true
+    },
+    {
+      "fragments": [
+        "the service_role key for supabase"
+      ],
+      "expect_redacted": "[redacted credential-like text]",
+      "expect_contains_secret": true
+    },
+    {
+      "fragments": [
+        "stripe secret rotated today"
+      ],
+      "expect_redacted": "[redacted credential-like text]",
+      "expect_contains_secret": true
+    },
+    {
+      "fragments": [
+        "the keystore password lives in .env"
+      ],
+      "expect_redacted": "[redacted credential-like text]",
+      "expect_contains_secret": true
+    },
+    {
+      "fragments": [
+        "sk",
+        "_live_",
+        "abcd1234efGH5678ijkl"
+      ],
+      "expect_redacted": "[redacted credential-like text]",
+      "expect_contains_secret": true
+    },
+    {
+      "fragments": [
+        "appl",
+        "_AbCdEfGhIjKlMnOp"
+      ],
+      "expect_redacted": "[redacted credential-like text]",
+      "expect_contains_secret": true
+    },
+    {
+      "fragments": [
+        "hf",
+        "_abcdefghij1234567890"
+      ],
+      "expect_redacted": "[redacted credential-like text]",
+      "expect_contains_secret": true
+    },
+    {
+      "fragments": [
+        "AKIA",
+        "IOSFODNN7EXAMPLE"
+      ],
+      "expect_redacted": "[redacted credential-like text]",
+      "expect_contains_secret": true
+    },
+    {
+      "fragments": [
+        "ghp_",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      ],
+      "expect_redacted": "[redacted credential-like text]",
+      "expect_contains_secret": true
+    },
+    {
+      "fragments": [
+        "github_pat_",
+        "bbbbbbbbbbbbbbbbbbbbbbbb"
+      ],
+      "expect_redacted": "[redacted credential-like text]",
+      "expect_contains_secret": true
+    },
+    {
+      "fragments": [
+        "glpat-",
+        "cccccccccccccccccccccc"
+      ],
+      "expect_redacted": "[redacted credential-like text]",
+      "expect_contains_secret": true
+    },
+    {
+      "fragments": [
+        "xoxb",
+        "-123456789012-abcdefghijklmnop"
+      ],
+      "expect_redacted": "[redacted credential-like text]",
+      "expect_contains_secret": true
+    },
+    {
+      "fragments": [
+        "sk-",
+        "dddddddddddddddddddddddd"
+      ],
+      "expect_redacted": "[redacted credential-like text]",
+      "expect_contains_secret": true
+    },
+    {
+      "fragments": [
+        "sk-ant-",
+        "api03-",
+        "eeeeeeeeeeeeeeeeeeeeeeee"
+      ],
+      "expect_redacted": "[redacted credential-like text]",
+      "expect_contains_secret": true
+    },
+    {
+      "fragments": [
+        "AIza",
+        "fffffffffffffffffffffffffffffffffff"
+      ],
+      "expect_redacted": "[redacted credential-like text]",
+      "expect_contains_secret": true
+    },
+    {
+      "fragments": [
+        "ya29.",
+        "gggggggggggggggggggggggggggggg"
+      ],
+      "expect_redacted": "[redacted credential-like text]",
+      "expect_contains_secret": true
+    },
+    {
+      "fragments": [
+        "npm_",
+        "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"
+      ],
+      "expect_redacted": "[redacted credential-like text]",
+      "expect_contains_secret": true
+    },
+    {
+      "fragments": [
+        "eyJ",
+        "hbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.",
+        "eyJzdWIiOiIxMjM0In0.",
+        "Sf",
+        "lKxwRJSMeKKF2QT4fwpMeJf36"
+      ],
+      "expect_redacted": "[redacted credential-like text]",
+      "expect_contains_secret": true
+    },
+    {
+      "fragments": [
+        "-----BEGIN RSA PRIVATE KEY-----"
+      ],
+      "expect_redacted": "[redacted credential-like text]",
+      "expect_contains_secret": true
+    }
+  ],
+  "benign": [
+    {
+      "text": "We shipped the recognition timing layer for Bourdon",
+      "expect_redacted": "We shipped the recognition timing layer for Bourdon",
+      "expect_contains_secret": false
+    },
+    {
+      "text": "Fixed the desktop tray autostart on Windows",
+      "expect_redacted": "Fixed the desktop tray autostart on Windows",
+      "expect_contains_secret": false
+    },
+    {
+      "text": "task-management-dashboard-rewrite-was-completed-today",
+      "expect_redacted": "task-management-dashboard-rewrite-was-completed-today",
+      "expect_contains_secret": false
+    },
+    {
+      "text": "the risk-assessment-and-disk-usage-monitoring-tool shipped",
+      "expect_redacted": "the risk-assessment-and-disk-usage-monitoring-tool shipped",
+      "expect_contains_secret": false
+    },
+    {
+      "text": "Bourdon recognition-first runtime layer is the core promise",
+      "expect_redacted": "Bourdon recognition-first runtime layer is the core promise",
+      "expect_contains_secret": false
+    }
+  ],
+  "case_variants": [
+    {
+      "pattern": "stripe_sk",
+      "case_sensitive": true,
+      "correct": {
+        "fragments": [
+          "sk",
+          "_live_",
+          "abcd1234efGH5678ijkl"
+        ],
+        "expect_redacted": "[redacted credential-like text]",
+        "expect_contains_secret": true
+      },
+      "wrong": {
+        "fragments": [
+          "SK_LIVE_ABCD1234EFGH5678IJKL"
+        ],
+        "expect_redacted": "SK_LIVE_ABCD1234EFGH5678IJKL",
+        "expect_contains_secret": false
+      }
+    },
+    {
+      "pattern": "revenuecat_appl",
+      "case_sensitive": false,
+      "correct": {
+        "fragments": [
+          "appl",
+          "_AbCdEfGhIjKlMnOp"
+        ],
+        "expect_redacted": "[redacted credential-like text]",
+        "expect_contains_secret": true
+      },
+      "wrong": {
+        "fragments": [
+          "APPL",
+          "_ABCDEFGHIJKLMNOP"
+        ],
+        "expect_redacted": "[redacted credential-like text]",
+        "expect_contains_secret": true
+      }
+    },
+    {
+      "pattern": "huggingface_hf",
+      "case_sensitive": false,
+      "correct": {
+        "fragments": [
+          "hf",
+          "_abcdefghij1234567890"
+        ],
+        "expect_redacted": "[redacted credential-like text]",
+        "expect_contains_secret": true
+      },
+      "wrong": {
+        "fragments": [
+          "HF",
+          "_ABCDEFGHIJ1234567890"
+        ],
+        "expect_redacted": "[redacted credential-like text]",
+        "expect_contains_secret": true
+      }
+    },
+    {
+      "pattern": "aws_akia",
+      "case_sensitive": true,
+      "correct": {
+        "fragments": [
+          "AKIA",
+          "IOSFODNN7EXAMPLE"
+        ],
+        "expect_redacted": "[redacted credential-like text]",
+        "expect_contains_secret": true
+      },
+      "wrong": {
+        "fragments": [
+          "akiaiosfodnn7example"
+        ],
+        "expect_redacted": "akiaiosfodnn7example",
+        "expect_contains_secret": false
+      }
+    },
+    {
+      "pattern": "github_ghp",
+      "case_sensitive": true,
+      "correct": {
+        "fragments": [
+          "ghp_",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        ],
+        "expect_redacted": "[redacted credential-like text]",
+        "expect_contains_secret": true
+      },
+      "wrong": {
+        "fragments": [
+          "GHP_AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        ],
+        "expect_redacted": "GHP_AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "expect_contains_secret": false
+      }
+    },
+    {
+      "pattern": "github_pat",
+      "case_sensitive": true,
+      "correct": {
+        "fragments": [
+          "github_pat_",
+          "bbbbbbbbbbbbbbbbbbbbbbbb"
+        ],
+        "expect_redacted": "[redacted credential-like text]",
+        "expect_contains_secret": true
+      },
+      "wrong": {
+        "fragments": [
+          "GITHUB_PAT_BBBBBBBBBBBBBBBBBBBBBBBB"
+        ],
+        "expect_redacted": "GITHUB_PAT_BBBBBBBBBBBBBBBBBBBBBBBB",
+        "expect_contains_secret": false
+      }
+    },
+    {
+      "pattern": "gitlab_glpat",
+      "case_sensitive": true,
+      "correct": {
+        "fragments": [
+          "glpat-",
+          "cccccccccccccccccccccc"
+        ],
+        "expect_redacted": "[redacted credential-like text]",
+        "expect_contains_secret": true
+      },
+      "wrong": {
+        "fragments": [
+          "GLPAT-CCCCCCCCCCCCCCCCCCCCCC"
+        ],
+        "expect_redacted": "GLPAT-CCCCCCCCCCCCCCCCCCCCCC",
+        "expect_contains_secret": false
+      }
+    },
+    {
+      "pattern": "slack_xoxb",
+      "case_sensitive": true,
+      "correct": {
+        "fragments": [
+          "xoxb",
+          "-123456789012-abcdefghijklmnop"
+        ],
+        "expect_redacted": "[redacted credential-like text]",
+        "expect_contains_secret": true
+      },
+      "wrong": {
+        "fragments": [
+          "XOXB-123456789012-ABCDEFGHIJKLMNOP"
+        ],
+        "expect_redacted": "XOXB-123456789012-ABCDEFGHIJKLMNOP",
+        "expect_contains_secret": false
+      }
+    },
+    {
+      "pattern": "openai_anthropic_sk",
+      "case_sensitive": true,
+      "correct": {
+        "fragments": [
+          "sk-",
+          "dddddddddddddddddddddddd"
+        ],
+        "expect_redacted": "[redacted credential-like text]",
+        "expect_contains_secret": true
+      },
+      "wrong": {
+        "fragments": [
+          "SK-DDDDDDDDDDDDDDDDDDDDDDDD"
+        ],
+        "expect_redacted": "SK-DDDDDDDDDDDDDDDDDDDDDDDD",
+        "expect_contains_secret": false
+      }
+    },
+    {
+      "pattern": "google_aiza",
+      "case_sensitive": true,
+      "correct": {
+        "fragments": [
+          "AIza",
+          "fffffffffffffffffffffffffffffffffff"
+        ],
+        "expect_redacted": "[redacted credential-like text]",
+        "expect_contains_secret": true
+      },
+      "wrong": {
+        "fragments": [
+          "AIZAFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+        ],
+        "expect_redacted": "AIZAFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
+        "expect_contains_secret": false
+      }
+    },
+    {
+      "pattern": "google_ya29",
+      "case_sensitive": true,
+      "correct": {
+        "fragments": [
+          "ya29.",
+          "gggggggggggggggggggggggggggggg"
+        ],
+        "expect_redacted": "[redacted credential-like text]",
+        "expect_contains_secret": true
+      },
+      "wrong": {
+        "fragments": [
+          "YA29.GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+        ],
+        "expect_redacted": "YA29.GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+        "expect_contains_secret": false
+      }
+    },
+    {
+      "pattern": "npm_token",
+      "case_sensitive": true,
+      "correct": {
+        "fragments": [
+          "npm_",
+          "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"
+        ],
+        "expect_redacted": "[redacted credential-like text]",
+        "expect_contains_secret": true
+      },
+      "wrong": {
+        "fragments": [
+          "NPM_HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH"
+        ],
+        "expect_redacted": "NPM_HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH",
+        "expect_contains_secret": false
+      }
+    },
+    {
+      "pattern": "jwt",
+      "case_sensitive": true,
+      "correct": {
+        "fragments": [
+          "eyJ",
+          "hbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.",
+          "eyJzdWIiOiIxMjM0In0.",
+          "Sf",
+          "lKxwRJSMeKKF2QT4fwpMeJf36"
+        ],
+        "expect_redacted": "[redacted credential-like text]",
+        "expect_contains_secret": true
+      },
+      "wrong": {
+        "fragments": [
+          "EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0IN0.SFLKXWRJSMEKKF2QT4FWPMEJF36"
+        ],
+        "expect_redacted": "EYJHBGCIOIJIUZI1NIISINR5CCI6IKPXVCJ9.EYJZDWIIOIIXMJM0IN0.SFLKXWRJSMEKKF2QT4FWPMEJF36",
+        "expect_contains_secret": false
+      }
+    },
+    {
+      "pattern": "pem_private_key",
+      "case_sensitive": true,
+      "correct": {
+        "fragments": [
+          "-----BEGIN RSA PRIVATE KEY-----"
+        ],
+        "expect_redacted": "[redacted credential-like text]",
+        "expect_contains_secret": true
+      },
+      "wrong": {
+        "fragments": [
+          "-----begin rsa private key-----"
+        ],
+        "expect_redacted": "-----begin rsa private key-----",
+        "expect_contains_secret": false
+      }
+    }
+  ]
+}

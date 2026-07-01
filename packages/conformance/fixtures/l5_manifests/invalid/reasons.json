@@ -1,0 +1,75 @@
+{
+  "_doc": "Each invalid manifest's expected primary failure. `expected` (keyword + ajv-style instancePath) is the cross-impl assertion; `errors` lists every violation for debugging. Oracle: jsonschema Draft202012Validator over spec/L5_schema.json.",
+  "reasons": {
+    "missing-required-last_updated.json": {
+      "valid": false,
+      "expected": {
+        "keyword": "required",
+        "instancePath": ""
+      },
+      "errors": [
+        {
+          "keyword": "required",
+          "instancePath": "",
+          "message": "'last_updated' is a required property"
+        }
+      ]
+    },
+    "bad-spec-version-pattern.json": {
+      "valid": false,
+      "expected": {
+        "keyword": "pattern",
+        "instancePath": "/spec_version"
+      },
+      "errors": [
+        {
+          "keyword": "pattern",
+          "instancePath": "/spec_version",
+          "message": "'0.1.0' does not match '^\\\\d+\\\\.\\\\d+$'"
+        }
+      ]
+    },
+    "bad-agent-type-enum.json": {
+      "valid": false,
+      "expected": {
+        "keyword": "enum",
+        "instancePath": "/agent/type"
+      },
+      "errors": [
+        {
+          "keyword": "enum",
+          "instancePath": "/agent/type",
+          "message": "'wizard' is not one of ['code-assistant', 'note-capture', 'local-swarm', 'customer-support', 'research-assistant', 'creative-collaborator', 'project-manager', 'tutor', 'other']"
+        }
+      ]
+    },
+    "entity-bad-visibility-enum.json": {
+      "valid": false,
+      "expected": {
+        "keyword": "enum",
+        "instancePath": "/known_entities/0/visibility"
+      },
+      "errors": [
+        {
+          "keyword": "enum",
+          "instancePath": "/known_entities/0/visibility",
+          "message": "'secret' is not one of ['public', 'team', 'private']"
+        }
+      ]
+    },
+    "entity-missing-name.json": {
+      "valid": false,
+      "expected": {
+        "keyword": "required",
+        "instancePath": "/known_entities/0"
+      },
+      "errors": [
+        {
+          "keyword": "required",
+          "instancePath": "/known_entities/0",
+          "message": "'name' is a required property"
+        }
+      ]
+    }
+  }
+}

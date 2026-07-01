@@ -1,0 +1,63 @@
+spec_version: '0.1'
+agent:
+  id: claude-code
+  type: code-assistant
+  instance: pc-threadripper
+  role_narrative: Lead code-assistant on the federation substrate.
+last_updated: '2026-06-29T12:00:00+00:00'
+capabilities:
+- code-read
+- code-write
+known_entities:
+- name: Bourdon
+  type: project
+  aliases:
+  - NeuroLayer
+  - Continuo
+  summary: Cross-agent memory federation (granted side).
+  tags:
+  - infra
+  visibility: public
+- name: Roadmap
+  type: concept
+  summary: Phase 1.7 federation roadmap.
+  tags:
+  - team
+  visibility: team
+- name: Quarterly Revenue
+  type: concept
+  summary: Q2 numbers.
+  tags:
+  - financial
+  visibility: private
+recent_sessions:
+- date: '2026-06-08'
+  cwd: /c/Users/cumul/repos/bourdon
+  project_focus:
+  - Bourdon
+  key_actions:
+  - wired tier matrix fixtures
+  files_touched:
+  - tools/gen_conformance.py
+  visibility: public
+- date: '2026-06-07'
+  cwd: /c/Users/cumul/repos/bourdon
+  project_focus:
+  - Roadmap
+  key_actions:
+  - team planning
+  visibility: team
+- date: '2026-06-06'
+  cwd: /c/Users/cumul/repos/bourdon
+  project_focus:
+  - Quarterly Revenue
+  key_actions:
+  - private review
+  visibility: private
+visibility_policy:
+  default: public
+  private_tags:
+  - financial
+  - personal
+  team_tags:
+  - team

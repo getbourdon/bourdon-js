@@ -1,0 +1,60 @@
+{
+  "spec_version": "0.1",
+  "agent": {
+    "id": "claude-code",
+    "type": "code-assistant",
+    "instance": "pc-threadripper",
+    "spec_version_compat": ">=0.1",
+    "role_narrative": "Lead code-assistant. Organizes project code."
+  },
+  "last_updated": "2026-06-29T12:00:00+00:00",
+  "capabilities": [
+    "code-read",
+    "code-write",
+    "web-search"
+  ],
+  "recent_sessions": [
+    {
+      "date": "2026-06-28",
+      "cwd": "/c/Users/cumul/repos/bourdon",
+      "project_focus": [
+        "bourdon"
+      ],
+      "key_actions": [
+        "wired l5 conformance fixtures"
+      ],
+      "files_touched": [
+        "tools/gen_conformance.py"
+      ],
+      "visibility": "public"
+    }
+  ],
+  "known_entities": [
+    {
+      "name": "Bourdon",
+      "type": "project",
+      "aliases": [
+        "NeuroLayer",
+        "Continuo"
+      ],
+      "summary": "Cross-agent memory federation.",
+      "last_touched": "2026-06-29",
+      "valid_from": "2026-01-01",
+      "tags": [
+        "infra"
+      ],
+      "visibility": "public"
+    }
+  ],
+  "visibility_policy": {
+    "default": "public",
+    "private_tags": [
+      "personal",
+      "financial",
+      "credential"
+    ],
+    "team_tags": [
+      "team"
+    ]
+  }
+}

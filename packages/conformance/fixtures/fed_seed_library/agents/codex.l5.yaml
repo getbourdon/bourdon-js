@@ -1,0 +1,35 @@
+spec_version: '0.1'
+agent:
+  id: codex
+  type: code-assistant
+last_updated: '2026-06-29T12:00:00+00:00'
+known_entities:
+- name: SecretProj
+  type: project
+  summary: Known only by codex (ungranted namespace).
+  visibility: public
+- name: Bourdon
+  type: project
+  summary: Federation, codex view.
+  visibility: public
+- name: Internal Notes
+  type: concept
+  summary: codex private.
+  tags:
+  - personal
+  visibility: private
+recent_sessions:
+- date: '2026-06-08'
+  cwd: /y
+  project_focus:
+  - SecretProj
+  key_actions:
+  - codex work
+  visibility: public
+- date: '2026-06-05'
+  cwd: /y
+  project_focus:
+  - Internal Notes
+  key_actions:
+  - codex private
+  visibility: team

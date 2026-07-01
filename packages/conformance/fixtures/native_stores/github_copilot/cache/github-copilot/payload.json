@@ -1,0 +1,21 @@
+{
+  "fetched_at": 1782604800.0,
+  "payload": {
+    "fetched_user": "ryan",
+    "fetched_at": "2026-06-29T00:00:00+00:00",
+    "items": [
+      {
+        "title": "Add OAuth login flow",
+        "number": 12,
+        "updated_at": "2026-06-20T10:00:00Z",
+        "repository_url": "https://api.github.com/repos/ryan/bourdon"
+      },
+      {
+        "title": "Rotate the service_role key in CI",
+        "number": 9,
+        "updated_at": "2026-06-18T10:00:00Z",
+        "repository_url": "https://api.github.com/repos/ryan/bourdon"
+      }
+    ]
+  }
+}

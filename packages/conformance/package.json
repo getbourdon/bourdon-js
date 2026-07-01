@@ -15,7 +15,8 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "fixtures"
   ],
   "engines": {
     "node": ">=20"
@@ -32,7 +33,7 @@
   },
   "scripts": {
     "build": "tsup",
-    "test": "vitest run"
-  },
-  "private": true
+    "test": "vitest run",
+    "sync-fixtures": "node scripts/sync-fixtures.mjs"
+  }
 }

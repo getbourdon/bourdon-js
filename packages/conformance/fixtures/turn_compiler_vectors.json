@@ -1,0 +1,645 @@
+{
+  "_doc": "Cross-impl turn-compiler parity. Oracle = the REAL compile_codex_turn / compile_cursor_turn, driven over a temp copy of `seed_library` with the wall clock FROZEN to frozen_clock so recency is deterministic. codex `brief` is TurnBrief.to_dict() with the resolved top-level cwd swapped back to the logical input string (the only env-bound field; repo.root/remote are null for the synthetic non-git cwd) -- the TS mirror passes the same cwd and applies the identical swap. BriefItem.score is round(.,1); recognition_confidence is the shared tier-only bucket. The pinned codex_cwd_hit item folds cwd-hit (25) + recency (15) + a NAME_SUBSTRING prompt tier into one session item. cursor briefs drop the runtime compile_latency_us; matched_entities[].score is round(.,2). codex DROPS recency-only non-vague candidates (observe), cursor INCLUDES score>0 recency matches but still buckets confidence 'none' without a name/alias tier hit.",
+  "frozen_clock": "2026-06-29",
+  "codex_schema_version": "codex-turn-brief/v1",
+  "cursor_schema_version": "cursor-turn-brief/v1",
+  "seed_library": {
+    "claude-code.l5.yaml": {
+      "spec_version": "0.1",
+      "agent": {
+        "id": "claude-code",
+        "type": "code-assistant"
+      },
+      "last_updated": "2026-06-29T12:00:00+00:00",
+      "known_entities": [
+        {
+          "name": "Bourdon",
+          "type": "project",
+          "aliases": [
+            "NeuroLayer",
+            "Continuo"
+          ],
+          "summary": "Cross-agent memory federation.",
+          "last_touched": "2026-06-28",
+          "visibility": "public"
+        },
+        {
+          "name": "Roadmap",
+          "type": "concept",
+          "summary": "Phase 1.7 federation roadmap.",
+          "tags": [
+            "team"
+          ],
+          "last_touched": "2026-06-10",
+          "visibility": "team"
+        }
+      ],
+      "recent_sessions": [
+        {
+          "date": "2026-06-28",
+          "cwd": "/projects/bourdon",
+          "project_focus": [
+            "Bourdon"
+          ],
+          "key_actions": [
+            "wired the turn compiler"
+          ],
+          "files_touched": [
+            "core/codex_turn_compiler.py"
+          ],
+          "visibility": "public"
+        }
+      ]
+    },
+    "codex.l5.yaml": {
+      "spec_version": "0.1",
+      "agent": {
+        "id": "codex",
+        "type": "code-assistant"
+      },
+      "last_updated": "2026-06-29T12:00:00+00:00",
+      "known_entities": [
+        {
+          "name": "Bourdon",
+          "type": "project",
+          "summary": "Federation, codex view.",
+          "last_touched": "2026-06-28",
+          "visibility": "public"
+        }
+      ]
+    }
+  },
+  "codex_cases": [
+    {
+      "name": "codex_cwd_hit",
+      "prompt": "what's next on Bourdon",
+      "cwd": "/projects/bourdon",
+      "access_level": "team",
+      "recognition_confidence": "medium",
+      "item_scores": [
+        {
+          "rank": 1,
+          "name": "Bourdon",
+          "kind": "session",
+          "source": "l6_federation",
+          "score": 86.0
+        },
+        {
+          "rank": 2,
+          "name": "Bourdon",
+          "kind": "project",
+          "source": "l6_federation",
+          "score": 60.0
+        }
+      ],
+      "brief": {
+        "schema_version": "codex-turn-brief/v1",
+        "prompt": "what's next on Bourdon",
+        "cwd": "/projects/bourdon",
+        "repo": {
+          "name": "bourdon",
+          "root": null,
+          "remote": null
+        },
+        "health": {
+          "native_stage1": "unknown",
+          "strategy": "turn_compiled"
+        },
+        "routing": {
+          "mode": "inject",
+          "primary_surface": "explicit_pre_turn",
+          "surfaces": [
+            "explicit_pre_turn",
+            "mcp",
+            "repo_overlay_candidate"
+          ],
+          "confidence": "medium",
+          "reason": "top anchor scored 86.0; source mix spans 1 surface(s); repo identity available as bourdon",
+          "suppressed_surfaces": [],
+          "next_action": "prepend delivery.explicit_text before the Codex turn"
+        },
+        "items": [
+          {
+            "rank": 1,
+            "score": 86.0,
+            "kind": "session",
+            "name": "Bourdon",
+            "summary": "wired the turn compiler",
+            "reason": "prompt matched Bourdon; cwd matched prior Codex thread; repo name matched candidate; cwd basename matched candidate; recent work; continuity evidence",
+            "source": "l6_federation",
+            "source_agents": [
+              "claude-code"
+            ],
+            "evidence": [
+              "session date 2026-06-28",
+              "cwd /projects/bourdon",
+              "files touched: core/codex_turn_compiler.py"
+            ]
+          },
+          {
+            "rank": 2,
+            "score": 60.0,
+            "kind": "project",
+            "name": "Bourdon",
+            "summary": "Cross-agent memory federation.",
+            "reason": "prompt matched Bourdon; repo name matched candidate; cwd basename matched candidate; cross-agent agreement",
+            "source": "l6_federation",
+            "source_agents": [
+              "claude-code",
+              "codex"
+            ],
+            "evidence": [
+              "known by claude-code, codex",
+              "aliases: NeuroLayer, Continuo"
+            ]
+          }
+        ],
+        "delivery": {
+          "explicit_text": "Bourdon turn recognition brief\nStrategy: turn-scoped compiler; native Stage 1 is unknown.\nRepo: bourdon\nUse these as recognition anchors, not as a final answer:\n1. Bourdon [session, l6_federation, score 86.0] via claude-code\n   wired the turn compiler\n   Why: prompt matched Bourdon; cwd matched prior Codex thread; repo name matched candidate; cwd basename matched candidate; recent work; continuity evidence\n2. Bourdon [project, l6_federation, score 60.0] via claude-code, codex\n   Cross-agent memory federation.\n   Why: prompt matched Bourdon; repo name matched candidate; cwd basename matched candidate; cross-agent agreement",
+          "mcp_payload": {
+            "schema_version": "codex-turn-brief/v1",
+            "strategy": "turn_compiled",
+            "native_stage1": "unknown",
+            "repo": {
+              "name": "bourdon",
+              "root": null,
+              "remote": null
+            },
+            "items": [
+              {
+                "rank": 1,
+                "score": 86.0,
+                "kind": "session",
+                "name": "Bourdon",
+                "summary": "wired the turn compiler",
+                "reason": "prompt matched Bourdon; cwd matched prior Codex thread; repo name matched candidate; cwd basename matched candidate; recent work; continuity evidence",
+                "source": "l6_federation",
+                "source_agents": [
+                  "claude-code"
+                ],
+                "evidence": [
+                  "session date 2026-06-28",
+                  "cwd /projects/bourdon",
+                  "files touched: core/codex_turn_compiler.py"
+                ]
+              },
+              {
+                "rank": 2,
+                "score": 60.0,
+                "kind": "project",
+                "name": "Bourdon",
+                "summary": "Cross-agent memory federation.",
+                "reason": "prompt matched Bourdon; repo name matched candidate; cwd basename matched candidate; cross-agent agreement",
+                "source": "l6_federation",
+                "source_agents": [
+                  "claude-code",
+                  "codex"
+                ],
+                "evidence": [
+                  "known by claude-code, codex",
+                  "aliases: NeuroLayer, Continuo"
+                ]
+              }
+            ],
+            "prompt_context": "Bourdon turn recognition brief\nStrategy: turn-scoped compiler; native Stage 1 is unknown.\nRepo: bourdon\nUse these as recognition anchors, not as a final answer:\n1. Bourdon [session, l6_federation, score 86.0] via claude-code\n   wired the turn compiler\n   Why: prompt matched Bourdon; cwd matched prior Codex thread; repo name matched candidate; cwd basename matched candidate; recent work; continuity evidence\n2. Bourdon [project, l6_federation, score 60.0] via claude-code, codex\n   Cross-agent memory federation.\n   Why: prompt matched Bourdon; repo name matched candidate; cwd basename matched candidate; cross-agent agreement"
+          },
+          "memory_md_block": "<!-- BEGIN BOURDON TURN BRIEF -->\nBourdon turn recognition brief\nStrategy: turn-scoped compiler; native Stage 1 is unknown.\nRepo: bourdon\nUse these as recognition anchors, not as a final answer:\n1. Bourdon [session, l6_federation, score 86.0] via claude-code\n   wired the turn compiler\n   Why: prompt matched Bourdon; cwd matched prior Codex thread; repo name matched candidate; cwd basename matched candidate; recent work; continuity evidence\n2. Bourdon [project, l6_federation, score 60.0] via claude-code, codex\n   Cross-agent memory federation.\n   Why: prompt matched Bourdon; repo name matched candidate; cwd basename matched candidate; cross-agent agreement\n<!-- END BOURDON TURN BRIEF -->",
+          "fallback_block": "<!-- BEGIN Bourdon Turn Brief -->\nBourdon turn recognition brief\nStrategy: turn-scoped compiler; native Stage 1 is unknown.\nRepo: bourdon\nUse these as recognition anchors, not as a final answer:\n1. Bourdon [session, l6_federation, score 86.0] via claude-code\n   wired the turn compiler\n   Why: prompt matched Bourdon; cwd matched prior Codex thread; repo name matched candidate; cwd basename matched candidate; recent work; continuity evidence\n2. Bourdon [project, l6_federation, score 60.0] via claude-code, codex\n   Cross-agent memory federation.\n   Why: prompt matched Bourdon; repo name matched candidate; cwd basename matched candidate; cross-agent agreement\n<!-- END Bourdon Turn Brief -->",
+          "repo_overlay_block": "<!-- BEGIN BOURDON REPO OVERLAY CANDIDATE -->\nRepo overlay candidate for bourdon\nUse only as an explicit, human-reviewed overlay candidate.\n\nBourdon turn recognition brief\nStrategy: turn-scoped compiler; native Stage 1 is unknown.\nRepo: bourdon\nUse these as recognition anchors, not as a final answer:\n1. Bourdon [session, l6_federation, score 86.0] via claude-code\n   wired the turn compiler\n   Why: prompt matched Bourdon; cwd matched prior Codex thread; repo name matched candidate; cwd basename matched candidate; recent work; continuity evidence\n2. Bourdon [project, l6_federation, score 60.0] via claude-code, codex\n   Cross-agent memory federation.\n   Why: prompt matched Bourdon; repo name matched candidate; cwd basename matched candidate; cross-agent agreement\n<!-- END BOURDON REPO OVERLAY CANDIDATE -->"
+        },
+        "trace": {
+          "routing_decision": {
+            "primary_surface": "explicit_pre_turn",
+            "confidence": "medium",
+            "reason": "top anchor scored 86.0; source mix spans 1 surface(s); repo identity available as bourdon"
+          },
+          "surface_health": {
+            "native_stage1": "unknown",
+            "repo_identity": "available",
+            "candidate_count": 2
+          },
+          "source_mix": {
+            "candidates": {
+              "l6_federation": 2
+            },
+            "selected": {
+              "l6_federation": 2
+            },
+            "ignored": {}
+          },
+          "selected_items": [
+            {
+              "name": "Bourdon",
+              "kind": "session",
+              "score": 86.0,
+              "dominant_components": [
+                "prompt",
+                "cwd_repo",
+                "recency"
+              ],
+              "reason": "prompt matched Bourdon; cwd matched prior Codex thread; repo name matched candidate; cwd basename matched candidate; recent work; continuity evidence"
+            },
+            {
+              "name": "Bourdon",
+              "kind": "project",
+              "score": 60.0,
+              "dominant_components": [
+                "prompt",
+                "cwd_repo",
+                "cross_agent"
+              ],
+              "reason": "prompt matched Bourdon; repo name matched candidate; cwd basename matched candidate; cross-agent agreement"
+            }
+          ]
+        },
+        "diagnostics": {
+          "scoring_components": {
+            "Bourdon": {
+              "prompt": 36.0,
+              "cwd_repo": 18.0,
+              "recency": 0.0,
+              "cross_agent": 6.0,
+              "continuity": 0.0,
+              "penalty": 0.0
+            }
+          },
+          "candidate_count": 2,
+          "delivery": "all",
+          "max_items": 6,
+          "max_chars": 1800,
+          "stage1_jobs": {
+            "total": 0,
+            "by_status": {},
+            "error_classes": {}
+          },
+          "exhausted_paths": [
+            "native_stage1_primary",
+            "static_fallback_primary",
+            "l5_export_only",
+            "sync_native_only"
+          ]
+        }
+      }
+    },
+    {
+      "name": "codex_prompt_only",
+      "prompt": "tell me about the Roadmap",
+      "cwd": "/projects/unrelated",
+      "access_level": "team",
+      "recognition_confidence": "medium",
+      "item_scores": [
+        {
+          "rank": 1,
+          "name": "Roadmap",
+          "kind": "entity",
+          "source": "l6_federation",
+          "score": 36.0
+        }
+      ],
+      "brief": {
+        "schema_version": "codex-turn-brief/v1",
+        "prompt": "tell me about the Roadmap",
+        "cwd": "/projects/unrelated",
+        "repo": {
+          "name": "unrelated",
+          "root": null,
+          "remote": null
+        },
+        "health": {
+          "native_stage1": "unknown",
+          "strategy": "turn_compiled"
+        },
+        "routing": {
+          "mode": "inject",
+          "primary_surface": "explicit_pre_turn",
+          "surfaces": [
+            "explicit_pre_turn",
+            "mcp"
+          ],
+          "confidence": "medium",
+          "reason": "top anchor scored 36.0; source mix spans 1 surface(s); repo identity available as unrelated",
+          "suppressed_surfaces": [],
+          "next_action": "prepend delivery.explicit_text before the Codex turn"
+        },
+        "items": [
+          {
+            "rank": 1,
+            "score": 36.0,
+            "kind": "entity",
+            "name": "Roadmap",
+            "summary": "Phase 1.7 federation roadmap.",
+            "reason": "prompt matched Roadmap",
+            "source": "l6_federation",
+            "source_agents": [
+              "claude-code"
+            ],
+            "evidence": [
+              "known by claude-code"
+            ]
+          }
+        ],
+        "delivery": {
+          "explicit_text": "Bourdon turn recognition brief\nStrategy: turn-scoped compiler; native Stage 1 is unknown.\nRepo: unrelated\nUse these as recognition anchors, not as a final answer:\n1. Roadmap [entity, l6_federation, score 36.0] via claude-code\n   Phase 1.7 federation roadmap.\n   Why: prompt matched Roadmap",
+          "mcp_payload": {
+            "schema_version": "codex-turn-brief/v1",
+            "strategy": "turn_compiled",
+            "native_stage1": "unknown",
+            "repo": {
+              "name": "unrelated",
+              "root": null,
+              "remote": null
+            },
+            "items": [
+              {
+                "rank": 1,
+                "score": 36.0,
+                "kind": "entity",
+                "name": "Roadmap",
+                "summary": "Phase 1.7 federation roadmap.",
+                "reason": "prompt matched Roadmap",
+                "source": "l6_federation",
+                "source_agents": [
+                  "claude-code"
+                ],
+                "evidence": [
+                  "known by claude-code"
+                ]
+              }
+            ],
+            "prompt_context": "Bourdon turn recognition brief\nStrategy: turn-scoped compiler; native Stage 1 is unknown.\nRepo: unrelated\nUse these as recognition anchors, not as a final answer:\n1. Roadmap [entity, l6_federation, score 36.0] via claude-code\n   Phase 1.7 federation roadmap.\n   Why: prompt matched Roadmap"
+          },
+          "memory_md_block": "<!-- BEGIN BOURDON TURN BRIEF -->\nBourdon turn recognition brief\nStrategy: turn-scoped compiler; native Stage 1 is unknown.\nRepo: unrelated\nUse these as recognition anchors, not as a final answer:\n1. Roadmap [entity, l6_federation, score 36.0] via claude-code\n   Phase 1.7 federation roadmap.\n   Why: prompt matched Roadmap\n<!-- END BOURDON TURN BRIEF -->",
+          "fallback_block": "<!-- BEGIN Bourdon Turn Brief -->\nBourdon turn recognition brief\nStrategy: turn-scoped compiler; native Stage 1 is unknown.\nRepo: unrelated\nUse these as recognition anchors, not as a final answer:\n1. Roadmap [entity, l6_federation, score 36.0] via claude-code\n   Phase 1.7 federation roadmap.\n   Why: prompt matched Roadmap\n<!-- END Bourdon Turn Brief -->",
+          "repo_overlay_block": "<!-- BEGIN BOURDON REPO OVERLAY CANDIDATE -->\nRepo overlay candidate for unrelated\nUse only as an explicit, human-reviewed overlay candidate.\n\nBourdon turn recognition brief\nStrategy: turn-scoped compiler; native Stage 1 is unknown.\nRepo: unrelated\nUse these as recognition anchors, not as a final answer:\n1. Roadmap [entity, l6_federation, score 36.0] via claude-code\n   Phase 1.7 federation roadmap.\n   Why: prompt matched Roadmap\n<!-- END BOURDON REPO OVERLAY CANDIDATE -->"
+        },
+        "trace": {
+          "routing_decision": {
+            "primary_surface": "explicit_pre_turn",
+            "confidence": "medium",
+            "reason": "top anchor scored 36.0; source mix spans 1 surface(s); repo identity available as unrelated"
+          },
+          "surface_health": {
+            "native_stage1": "unknown",
+            "repo_identity": "available",
+            "candidate_count": 1
+          },
+          "source_mix": {
+            "candidates": {
+              "l6_federation": 1
+            },
+            "selected": {
+              "l6_federation": 1
+            },
+            "ignored": {}
+          },
+          "selected_items": [
+            {
+              "name": "Roadmap",
+              "kind": "entity",
+              "score": 36.0,
+              "dominant_components": [
+                "prompt"
+              ],
+              "reason": "prompt matched Roadmap"
+            }
+          ]
+        },
+        "diagnostics": {
+          "scoring_components": {
+            "Roadmap": {
+              "prompt": 36.0,
+              "cwd_repo": 0.0,
+              "recency": 0.0,
+              "cross_agent": 0.0,
+              "continuity": 0.0,
+              "penalty": 0.0
+            }
+          },
+          "candidate_count": 1,
+          "delivery": "all",
+          "max_items": 6,
+          "max_chars": 1800,
+          "stage1_jobs": {
+            "total": 0,
+            "by_status": {},
+            "error_classes": {}
+          },
+          "exhausted_paths": [
+            "native_stage1_primary",
+            "static_fallback_primary",
+            "l5_export_only",
+            "sync_native_only"
+          ]
+        }
+      }
+    },
+    {
+      "name": "codex_observe_no_match",
+      "prompt": "what is the weather today",
+      "cwd": "/projects/unrelated",
+      "access_level": "team",
+      "recognition_confidence": "none",
+      "item_scores": [],
+      "brief": {
+        "schema_version": "codex-turn-brief/v1",
+        "prompt": "what is the weather today",
+        "cwd": "/projects/unrelated",
+        "repo": {
+          "name": "unrelated",
+          "root": null,
+          "remote": null
+        },
+        "health": {
+          "native_stage1": "unknown",
+          "strategy": "turn_compiled"
+        },
+        "routing": {
+          "mode": "observe",
+          "primary_surface": "none",
+          "surfaces": [],
+          "confidence": "none",
+          "reason": "no high-confidence recognition anchors",
+          "suppressed_surfaces": [
+            "native_stage1",
+            "memory_md",
+            "fallback_file"
+          ],
+          "next_action": "continue without recognition injection"
+        },
+        "items": [],
+        "delivery": {
+          "explicit_text": "Bourdon turn recognition brief\nStrategy: turn-scoped compiler; native Stage 1 is unknown.\nRepo: unrelated\nNo high-confidence recognition anchors found for this turn.",
+          "mcp_payload": {
+            "schema_version": "codex-turn-brief/v1",
+            "strategy": "turn_compiled",
+            "native_stage1": "unknown",
+            "repo": {
+              "name": "unrelated",
+              "root": null,
+              "remote": null
+            },
+            "items": [],
+            "prompt_context": "Bourdon turn recognition brief\nStrategy: turn-scoped compiler; native Stage 1 is unknown.\nRepo: unrelated\nNo high-confidence recognition anchors found for this turn."
+          },
+          "memory_md_block": "<!-- BEGIN BOURDON TURN BRIEF -->\nBourdon turn recognition brief\nStrategy: turn-scoped compiler; native Stage 1 is unknown.\nRepo: unrelated\nNo high-confidence recognition anchors found for this turn.\n<!-- END BOURDON TURN BRIEF -->",
+          "fallback_block": "<!-- BEGIN Bourdon Turn Brief -->\nBourdon turn recognition brief\nStrategy: turn-scoped compiler; native Stage 1 is unknown.\nRepo: unrelated\nNo high-confidence recognition anchors found for this turn.\n<!-- END Bourdon Turn Brief -->",
+          "repo_overlay_block": ""
+        },
+        "trace": {
+          "routing_decision": {
+            "primary_surface": "none",
+            "confidence": "none",
+            "reason": "no high-confidence recognition anchors"
+          },
+          "surface_health": {
+            "native_stage1": "unknown",
+            "repo_identity": "available",
+            "candidate_count": 0
+          },
+          "source_mix": {
+            "candidates": {},
+            "selected": {},
+            "ignored": {}
+          },
+          "selected_items": []
+        },
+        "diagnostics": {
+          "scoring_components": {},
+          "candidate_count": 0,
+          "delivery": "all",
+          "max_items": 6,
+          "max_chars": 1800,
+          "stage1_jobs": {
+            "total": 0,
+            "by_status": {},
+            "error_classes": {}
+          },
+          "exhausted_paths": [
+            "native_stage1_primary",
+            "static_fallback_primary",
+            "l5_export_only",
+            "sync_native_only"
+          ]
+        }
+      }
+    }
+  ],
+  "cursor_cases": [
+    {
+      "name": "cursor_cwd_hit",
+      "prompt": "what's next on Bourdon",
+      "cwd": "/projects/bourdon",
+      "access_level": "team",
+      "recognition_confidence": "medium",
+      "cwd_project": "bourdon",
+      "prompt_tokens": [
+        "next",
+        "bourdon"
+      ],
+      "matched_entities": [
+        {
+          "name": "Bourdon",
+          "type": "project",
+          "agent": "claude-code",
+          "summary": "Cross-agent memory federation.",
+          "score": 6.0
+        },
+        {
+          "name": "Bourdon",
+          "type": "project",
+          "agent": "codex",
+          "summary": "Federation, codex view.",
+          "score": 6.0
+        },
+        {
+          "name": "Roadmap",
+          "type": "concept",
+          "agent": "claude-code",
+          "summary": "Phase 1.7 federation roadmap.",
+          "score": 0.5
+        }
+      ],
+      "routing": {
+        "confidence": "medium",
+        "strategy": "turn_compiled"
+      }
+    },
+    {
+      "name": "cursor_prompt_only",
+      "prompt": "tell me about the Roadmap",
+      "cwd": "/projects/unrelated",
+      "access_level": "team",
+      "recognition_confidence": "medium",
+      "cwd_project": "unrelated",
+      "prompt_tokens": [
+        "roadmap"
+      ],
+      "matched_entities": [
+        {
+          "name": "Roadmap",
+          "type": "concept",
+          "agent": "claude-code",
+          "summary": "Phase 1.7 federation roadmap.",
+          "score": 2.5
+        },
+        {
+          "name": "Bourdon",
+          "type": "project",
+          "agent": "claude-code",
+          "summary": "Cross-agent memory federation.",
+          "score": 1.0
+        },
+        {
+          "name": "Bourdon",
+          "type": "project",
+          "agent": "codex",
+          "summary": "Federation, codex view.",
+          "score": 1.0
+        }
+      ],
+      "routing": {
+        "confidence": "medium",
+        "strategy": "turn_compiled"
+      }
+    },
+    {
+      "name": "cursor_recency_only",
+      "prompt": "what is the weather today",
+      "cwd": "/projects/unrelated",
+      "access_level": "team",
+      "recognition_confidence": "none",
+      "cwd_project": "unrelated",
+      "prompt_tokens": [
+        "weather",
+        "today"
+      ],
+      "matched_entities": [
+        {
+          "name": "Bourdon",
+          "type": "project",
+          "agent": "claude-code",
+          "summary": "Cross-agent memory federation.",
+          "score": 1.0
+        },
+        {
+          "name": "Bourdon",
+          "type": "project",
+          "agent": "codex",
+          "summary": "Federation, codex view.",
+          "score": 1.0
+        },
+        {
+          "name": "Roadmap",
+          "type": "concept",
+          "agent": "claude-code",
+          "summary": "Phase 1.7 federation roadmap.",
+          "score": 0.5
+        }
+      ],
+      "routing": {
+        "confidence": "none",
+        "strategy": "turn_compiled"
+      }
+    }
+  ]
+}

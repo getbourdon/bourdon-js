@@ -1,0 +1,398 @@
+{
+  "_doc": "Cross-impl D4 trust-tier enforcement. Oracle = the live create_l6_server closures, driven over a temp copy of fed_seed_library with a quarantined `openclaw` granted ONLY `claude-code`. Each case pins the allow|deny decision the server actually returned and, on deny, the VERBATIM structured-denial dict. `granted` is True/False for namespace-scoped tools, null otherwise. `denial.detail` is deterministic prose (embeds the synthetic caller id / namespace); the load-bearing invariant is decision + the denial KEY SET. trusted=OPERATOR (stdio / legacy peer); list_recent_work denials also fold in an empty sessions/next_cursor/has_more page.",
+  "denial_shape": {
+    "keys": [
+      "error",
+      "op",
+      "agent",
+      "tier",
+      "detail"
+    ],
+    "error_value": "access denied",
+    "note": "list_recent_work denials additionally carry sessions=[], next_cursor=null, has_more=false."
+  },
+  "seed_library": "fed_seed_library",
+  "caller": {
+    "trusted": {
+      "agent_id": "operator",
+      "tier": "trusted"
+    },
+    "quarantined": {
+      "agent_id": "openclaw",
+      "tier": "quarantined",
+      "grants": [
+        "claude-code"
+      ]
+    }
+  },
+  "cases": [
+    {
+      "tool": "query_agent_memory",
+      "tier": "trusted",
+      "namespace": "claude-code",
+      "granted": null,
+      "args": {
+        "agent": "claude-code",
+        "topic": "Bourdon"
+      },
+      "decision": "allow",
+      "denial": null
+    },
+    {
+      "tool": "query_agent_memory",
+      "tier": "trusted",
+      "namespace": "codex",
+      "granted": null,
+      "args": {
+        "agent": "codex",
+        "topic": "Bourdon"
+      },
+      "decision": "allow",
+      "denial": null
+    },
+    {
+      "tool": "list_recent_work",
+      "tier": "trusted",
+      "namespace": null,
+      "granted": null,
+      "args": {
+        "since": "2026-06-01"
+      },
+      "decision": "allow",
+      "denial": null
+    },
+    {
+      "tool": "list_recent_work",
+      "tier": "trusted",
+      "namespace": "codex",
+      "granted": null,
+      "args": {
+        "since": "2026-06-01",
+        "agent": "codex"
+      },
+      "decision": "allow",
+      "denial": null
+    },
+    {
+      "tool": "find_entity",
+      "tier": "trusted",
+      "namespace": null,
+      "granted": null,
+      "args": {
+        "name": "Bourdon"
+      },
+      "decision": "allow",
+      "denial": null
+    },
+    {
+      "tool": "list_agents",
+      "tier": "trusted",
+      "namespace": null,
+      "granted": null,
+      "args": {},
+      "decision": "allow",
+      "denial": null
+    },
+    {
+      "tool": "export_agents",
+      "tier": "trusted",
+      "namespace": null,
+      "granted": null,
+      "args": {},
+      "decision": "allow",
+      "denial": null
+    },
+    {
+      "tool": "commit_to_federation",
+      "tier": "trusted",
+      "namespace": "clyde",
+      "granted": null,
+      "args": {
+        "agent_id": "clyde",
+        "agent_type": "other",
+        "entities": [
+          {
+            "name": "TrustedThing",
+            "summary": "ok"
+          }
+        ]
+      },
+      "decision": "allow",
+      "denial": null
+    },
+    {
+      "tool": "get_cross_agent_summary",
+      "tier": "trusted",
+      "namespace": null,
+      "granted": null,
+      "args": {
+        "project": "Bourdon"
+      },
+      "decision": "allow",
+      "denial": null
+    },
+    {
+      "tool": "prepare_recognition_context",
+      "tier": "trusted",
+      "namespace": null,
+      "granted": null,
+      "args": {
+        "prompt": "what about Bourdon"
+      },
+      "decision": "allow",
+      "denial": null
+    },
+    {
+      "tool": "get_deeper_context",
+      "tier": "trusted",
+      "namespace": null,
+      "granted": null,
+      "args": {
+        "prompt": "what about Bourdon"
+      },
+      "decision": "allow",
+      "denial": null
+    },
+    {
+      "tool": "compile_codex_turn",
+      "tier": "trusted",
+      "namespace": null,
+      "granted": null,
+      "args": {
+        "prompt": "what about Bourdon"
+      },
+      "decision": "allow",
+      "denial": null
+    },
+    {
+      "tool": "query_agent_memory",
+      "tier": "quarantined",
+      "namespace": "claude-code",
+      "granted": true,
+      "args": {
+        "agent": "claude-code",
+        "topic": "Bourdon"
+      },
+      "decision": "allow",
+      "denial": null
+    },
+    {
+      "tool": "query_agent_memory",
+      "tier": "quarantined",
+      "namespace": "codex",
+      "granted": false,
+      "args": {
+        "agent": "codex",
+        "topic": "Bourdon"
+      },
+      "decision": "deny",
+      "denial": {
+        "error": "access denied",
+        "op": "query_agent_memory",
+        "agent": "openclaw",
+        "tier": "quarantined",
+        "detail": "namespace 'codex' not granted"
+      }
+    },
+    {
+      "tool": "list_recent_work",
+      "tier": "quarantined",
+      "namespace": null,
+      "granted": null,
+      "args": {
+        "since": "2026-06-01"
+      },
+      "decision": "allow",
+      "denial": null
+    },
+    {
+      "tool": "list_recent_work",
+      "tier": "quarantined",
+      "namespace": "claude-code",
+      "granted": true,
+      "args": {
+        "since": "2026-06-01",
+        "agent": "claude-code"
+      },
+      "decision": "allow",
+      "denial": null
+    },
+    {
+      "tool": "list_recent_work",
+      "tier": "quarantined",
+      "namespace": "codex",
+      "granted": false,
+      "args": {
+        "since": "2026-06-01",
+        "agent": "codex"
+      },
+      "decision": "deny",
+      "denial": {
+        "error": "access denied",
+        "op": "list_recent_work",
+        "agent": "openclaw",
+        "tier": "quarantined",
+        "detail": "namespace 'codex' not granted",
+        "sessions": [],
+        "next_cursor": null,
+        "has_more": false
+      }
+    },
+    {
+      "tool": "find_entity",
+      "tier": "quarantined",
+      "namespace": null,
+      "granted": null,
+      "args": {
+        "name": "Bourdon"
+      },
+      "decision": "allow",
+      "denial": null
+    },
+    {
+      "tool": "find_entity",
+      "tier": "quarantined",
+      "namespace": null,
+      "granted": null,
+      "args": {
+        "name": "SecretProj"
+      },
+      "decision": "allow",
+      "denial": null
+    },
+    {
+      "tool": "list_agents",
+      "tier": "quarantined",
+      "namespace": null,
+      "granted": null,
+      "args": {},
+      "decision": "allow",
+      "denial": null
+    },
+    {
+      "tool": "export_agents",
+      "tier": "quarantined",
+      "namespace": null,
+      "granted": null,
+      "args": {},
+      "decision": "allow",
+      "denial": null
+    },
+    {
+      "tool": "commit_to_federation",
+      "tier": "quarantined",
+      "namespace": "openclaw",
+      "granted": true,
+      "args": {
+        "agent_id": "openclaw",
+        "agent_type": "other",
+        "entities": [
+          {
+            "name": "ClawFinding",
+            "type": "topic",
+            "summary": "from openclaw"
+          }
+        ],
+        "sessions": [
+          {
+            "date": "2026-06-09"
+          }
+        ]
+      },
+      "decision": "allow",
+      "denial": null
+    },
+    {
+      "tool": "commit_to_federation",
+      "tier": "quarantined",
+      "namespace": "claude-code",
+      "granted": false,
+      "args": {
+        "agent_id": "claude-code",
+        "agent_type": "code-assistant",
+        "entities": [
+          {
+            "name": "Poisoned",
+            "summary": "injected"
+          }
+        ]
+      },
+      "decision": "deny",
+      "denial": {
+        "error": "access denied",
+        "op": "commit_to_federation",
+        "agent": "openclaw",
+        "tier": "quarantined",
+        "detail": "quarantined members may only write their own namespace ('openclaw')"
+      }
+    },
+    {
+      "tool": "get_cross_agent_summary",
+      "tier": "quarantined",
+      "namespace": null,
+      "granted": null,
+      "args": {
+        "project": "Bourdon"
+      },
+      "decision": "deny",
+      "denial": {
+        "error": "access denied",
+        "op": "get_cross_agent_summary",
+        "agent": "openclaw",
+        "tier": "quarantined",
+        "detail": "tier 'quarantined' may not call this tool"
+      }
+    },
+    {
+      "tool": "prepare_recognition_context",
+      "tier": "quarantined",
+      "namespace": null,
+      "granted": null,
+      "args": {
+        "prompt": "what about Bourdon"
+      },
+      "decision": "deny",
+      "denial": {
+        "error": "access denied",
+        "op": "prepare_recognition_context",
+        "agent": "openclaw",
+        "tier": "quarantined",
+        "detail": "tier 'quarantined' may not call this tool"
+      }
+    },
+    {
+      "tool": "get_deeper_context",
+      "tier": "quarantined",
+      "namespace": null,
+      "granted": null,
+      "args": {
+        "prompt": "what about Bourdon"
+      },
+      "decision": "deny",
+      "denial": {
+        "error": "access denied",
+        "op": "get_deeper_context",
+        "agent": "openclaw",
+        "tier": "quarantined",
+        "detail": "tier 'quarantined' may not call this tool"
+      }
+    },
+    {
+      "tool": "compile_codex_turn",
+      "tier": "quarantined",
+      "namespace": null,
+      "granted": null,
+      "args": {
+        "prompt": "what about Bourdon"
+      },
+      "decision": "deny",
+      "denial": {
+        "error": "access denied",
+        "op": "compile_codex_turn",
+        "agent": "openclaw",
+        "tier": "quarantined",
+        "detail": "tier 'quarantined' may not call this tool"
+      }
+    }
+  ]
+}

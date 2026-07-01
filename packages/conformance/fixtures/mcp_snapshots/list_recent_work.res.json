@@ -1,0 +1,38 @@
+{
+  "access_level": "team",
+  "has_more": true,
+  "include_private": false,
+  "limit": 2,
+  "next_cursor": {
+    "offset": 2
+  },
+  "sessions": [
+    {
+      "agent": "codex",
+      "cwd": "/y",
+      "date": "2026-06-08",
+      "key_actions": [
+        "codex work"
+      ],
+      "project_focus": [
+        "SecretProj"
+      ]
+    },
+    {
+      "agent": "claude-code",
+      "cwd": "/c/Users/cumul/repos/bourdon",
+      "date": "2026-06-08",
+      "files_touched": [
+        "tools/gen_conformance.py"
+      ],
+      "key_actions": [
+        "wired tier matrix fixtures"
+      ],
+      "project_focus": [
+        "Bourdon"
+      ]
+    }
+  ],
+  "since": "2026-06-01",
+  "summary": false
+}

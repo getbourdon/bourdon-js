@@ -1,0 +1,2 @@
+- Prefers concise answers
+- Works in the Pacific timezone

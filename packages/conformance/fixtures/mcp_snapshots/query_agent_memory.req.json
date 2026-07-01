@@ -1,0 +1,8 @@
+{
+  "args": {
+    "access_level": "team",
+    "agent": "claude-code",
+    "topic": "Bourdon"
+  },
+  "tool": "query_agent_memory"
+}
