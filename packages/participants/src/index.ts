@@ -78,6 +78,15 @@ export {
   verifyInstance,
   MIN_PATCHED_VERSION,
 } from "./readers/openclaw.js";
+// Background-run "automations" variants (publish automation-run memory as L5 evidence).
+export { ClaudeCodeAutomationsParticipant } from "./readers/claude-code-automations.js";
+export { CodexAutomationsParticipant } from "./readers/codex-automations.js";
+export { CopilotAutomationsParticipant } from "./readers/copilot-automations.js";
+export { CursorAutomationsParticipant } from "./readers/cursor-automations.js";
+// Claude desktop surfaces + VS Code Copilot.
+export { ClaudeDesktopCodeParticipant } from "./readers/claude-desktop-code.js";
+export { ClaudeDesktopCoworkParticipant } from "./readers/claude-desktop-cowork.js";
+export { CopilotVscodeParticipant } from "./readers/copilot-vscode.js";
 
 // Discovery (static registry).
 export {

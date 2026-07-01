@@ -18,9 +18,16 @@
 import { isParticipant, type BourdonParticipant } from "./base.js";
 import { CascadeParticipant } from "./readers/cascade.js";
 import { ClaudeCodeParticipant } from "./readers/claude-code.js";
+import { ClaudeCodeAutomationsParticipant } from "./readers/claude-code-automations.js";
+import { ClaudeDesktopCodeParticipant } from "./readers/claude-desktop-code.js";
+import { ClaudeDesktopCoworkParticipant } from "./readers/claude-desktop-cowork.js";
+import { CodexAutomationsParticipant } from "./readers/codex-automations.js";
 import { CopilotParticipant } from "./readers/copilot.js";
+import { CopilotAutomationsParticipant } from "./readers/copilot-automations.js";
 import { CopilotCliParticipant } from "./readers/copilot-cli.js";
+import { CopilotVscodeParticipant } from "./readers/copilot-vscode.js";
 import { CursorParticipant } from "./readers/cursor.js";
+import { CursorAutomationsParticipant } from "./readers/cursor-automations.js";
 import { GitHubCopilotParticipant } from "./readers/github-copilot.js";
 import { HermesParticipant } from "./readers/hermes.js";
 import { OpenClawParticipant } from "./readers/openclaw.js";
@@ -30,17 +37,23 @@ export type ParticipantCtor = new () => BourdonParticipant;
 
 /**
  * The first-party reader registry. Order here is irrelevant — discovery sorts by
- * `agentId`. (cursor / copilot-cli are the heavier SQLite readers; copilot is the
- * convention-file reader; cascade reads Windsurf; openclaw is the quarantined-
- * class network reader. codex — the ~2.6k-line turn-compiler reader — is still
- * deferred.)
+ * `agentId`. Covers the base agents, their background-run "automations" variants,
+ * the Claude-desktop surfaces, and the quarantined-class openclaw network reader.
+ * codex — the ~2.6k-line turn-compiler reader — is the only one still deferred.
  */
 export const FIRST_PARTY: ParticipantCtor[] = [
   CascadeParticipant as unknown as ParticipantCtor,
   ClaudeCodeParticipant as unknown as ParticipantCtor,
+  ClaudeCodeAutomationsParticipant as unknown as ParticipantCtor,
+  ClaudeDesktopCodeParticipant as unknown as ParticipantCtor,
+  ClaudeDesktopCoworkParticipant as unknown as ParticipantCtor,
+  CodexAutomationsParticipant as unknown as ParticipantCtor,
   CopilotParticipant as unknown as ParticipantCtor,
+  CopilotAutomationsParticipant as unknown as ParticipantCtor,
   CopilotCliParticipant as unknown as ParticipantCtor,
+  CopilotVscodeParticipant as unknown as ParticipantCtor,
   CursorParticipant as unknown as ParticipantCtor,
+  CursorAutomationsParticipant as unknown as ParticipantCtor,
   GitHubCopilotParticipant as unknown as ParticipantCtor,
   HermesParticipant as unknown as ParticipantCtor,
   OpenClawParticipant as unknown as ParticipantCtor,

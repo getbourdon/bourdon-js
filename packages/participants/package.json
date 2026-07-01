@@ -39,6 +39,7 @@
   "dependencies": {
     "@getbourdon/l5": "workspace:*",
     "@getbourdon/redaction": "workspace:*",
+    "smol-toml": "^1.7.0",
     "yaml": "^2.6.1"
   },
   "optionalDependencies": {
