@@ -1,4 +1,4 @@
-# @getbourdon/participants
+# @getbourdon/conformance
 
 ## 0.2.0
 
@@ -17,19 +17,3 @@
     Adds the `quarantinedClass` marker to the `BourdonParticipant` contract; the
     CLI risk gate (`bourdon agent add/set-tier`) reads it to require
     `--i-understand-the-risk` for trusted registration of openclaw.
-
-### Patch Changes
-
-- @getbourdon/l5@0.1.1
-- @getbourdon/redaction@0.1.1
-
-## 0.1.1
-
-### Patch Changes
-
-- Republish via tokenless OIDC trusted publishing (no functional change). Validates the
-  tag-driven release pipeline end-to-end and exercises every package's npm trusted-publisher
-  config in a single run.
-- Updated dependencies
-  - @getbourdon/l5@0.1.1
-  - @getbourdon/redaction@0.1.1

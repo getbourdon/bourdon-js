@@ -1,5 +1,16 @@
 # @getbourdon/inference
 
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies [821638d]
+  - @getbourdon/participants@0.2.0
+  - @getbourdon/federation@0.1.1
+  - @getbourdon/l5@0.1.1
+  - @getbourdon/recognition@0.1.1
+  - @getbourdon/redaction@0.1.1
+
 ## 0.1.1
 
 ### Patch Changes

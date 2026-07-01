@@ -1,5 +1,15 @@
 # @getbourdon/mcp-server
 
+## 0.1.2
+
+### Patch Changes
+
+- @getbourdon/federation@0.1.1
+- @getbourdon/inference@0.1.2
+- @getbourdon/l5@0.1.1
+- @getbourdon/recognition@0.1.1
+- @getbourdon/redaction@0.1.1
+
 ## 0.1.1
 
 ### Patch Changes

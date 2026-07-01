@@ -1,6 +1,6 @@
 {
   "name": "@getbourdon/mcp-server",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Bourdon L6 MCP server (BUSL-1.1) — the facade over @getbourdon/federation that exposes the federation natively to any MCP-aware agent (Claude Code, Codex, Cursor). Faithful port of core/l6_server.py on @modelcontextprotocol/sdk. WIRE-COMPATIBLE with the Python server BOTH directions: every tool returns JSON-in-TextContent (text = JSON.stringify(payload)) so a Python RemoteL6Client's json.loads(item.text) recovers it. 10 tools + 3 resources, the public/team access_level default split, the Bearer/AsyncLocalStorage auth middleware (empty-Bearer never authenticates, HTTP-bypass -> quarantined fail-closed), stdio-first transport, and the loopback-only non-auth bind refusal. Python (pip install bourdon) is the oracle; asserts against @getbourdon/conformance mcp_snapshots.",
   "license": "BUSL-1.1",
   "type": "module",

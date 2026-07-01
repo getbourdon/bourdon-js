@@ -1,6 +1,6 @@
 {
   "name": "bourdon",
-  "version": "0.12.1",
+  "version": "0.12.2",
   "description": "The unscoped `bourdon` CLI — a thin, Apache-2.0 dispatch over the @getbourdon/* engine packages. Faithful command-for-command port of cli/main.py (argparse → commander.js): ~32 top-level nodes / ~78 subparsers, the non-obvious argparse defaults copied exactly, the agents --json tray contract, the non-loopback-bind refusal, and the platform-bound seams. Contains NO engine logic — it only invokes @getbourdon/*, so it is permissively licensed. Python (pip install bourdon) is the oracle.",
   "license": "Apache-2.0",
   "type": "module",
