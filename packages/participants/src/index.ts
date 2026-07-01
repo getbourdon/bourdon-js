@@ -2,9 +2,11 @@
  * @getbourdon/participants — the external-agent → L5 reader layer (BUSL-1.1).
  *
  * Each participant normalizes a foreign agent's native memory store into a
- * visibility-filtered, redacted L5 manifest. Three reader categories:
- *   - SQLite (read-only, better-sqlite3 mode=ro): {@link HermesParticipant}
- *   - file / convention:                          {@link ClaudeCodeParticipant}
+ * visibility-filtered, redacted L5 manifest. Reader categories:
+ *   - SQLite (read-only, better-sqlite3 mode=ro): {@link HermesParticipant},
+ *     {@link CursorParticipant}, {@link CopilotCliParticipant}
+ *   - file / convention:                          {@link ClaudeCodeParticipant},
+ *     {@link CopilotParticipant}, {@link CascadeParticipant}
  *   - network (TTL cache + lazy AuthProvider):     {@link GitHubCopilotParticipant}
  *
  * Four invariants enforced in code, not by trust: visibility-filter-before-
@@ -13,8 +15,8 @@
  *
  * Python (`pip install bourdon`) is the oracle; this mirror asserts against the
  * @getbourdon/conformance `native_stores` fixtures (output shape only).
- * Follow-on slice: cursor + codex (heavier SQLite) + copilot_cli; openclaw ships
- * as the @getbourdon/openclaw plugin.
+ * Still deferred: codex (the ~2.6k-line turn-compiler reader) and openclaw (the
+ * quarantined-class network reader) — both land in a follow-on slice.
  */
 
 // Contract surface: Protocol interface, errors, AgentStore + HealthStatus.
@@ -65,6 +67,10 @@ export {
 export { HermesParticipant } from "./readers/hermes.js";
 export { ClaudeCodeParticipant } from "./readers/claude-code.js";
 export { GitHubCopilotParticipant, ghTokenProvider } from "./readers/github-copilot.js";
+export { CursorParticipant } from "./readers/cursor.js";
+export { CopilotParticipant } from "./readers/copilot.js";
+export { CopilotCliParticipant } from "./readers/copilot-cli.js";
+export { CascadeParticipant } from "./readers/cascade.js";
 
 // Discovery (static registry).
 export {

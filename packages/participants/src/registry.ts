@@ -16,7 +16,11 @@
  */
 
 import { isParticipant, type BourdonParticipant } from "./base.js";
+import { CascadeParticipant } from "./readers/cascade.js";
 import { ClaudeCodeParticipant } from "./readers/claude-code.js";
+import { CopilotParticipant } from "./readers/copilot.js";
+import { CopilotCliParticipant } from "./readers/copilot-cli.js";
+import { CursorParticipant } from "./readers/cursor.js";
 import { GitHubCopilotParticipant } from "./readers/github-copilot.js";
 import { HermesParticipant } from "./readers/hermes.js";
 
@@ -25,11 +29,16 @@ export type ParticipantCtor = new () => BourdonParticipant;
 
 /**
  * The first-party reader registry. Order here is irrelevant — discovery sorts by
- * `agentId`. (cursor / codex / copilot_cli are the heavier SQLite readers of the
- * follow-on slice; openclaw ships as the `@getbourdon/openclaw` plugin.)
+ * `agentId`. (cursor / copilot-cli are the heavier SQLite readers; copilot is the
+ * convention-file reader; cascade reads Windsurf. codex — the ~2.6k-line
+ * turn-compiler reader — is still deferred.)
  */
 export const FIRST_PARTY: ParticipantCtor[] = [
+  CascadeParticipant as unknown as ParticipantCtor,
   ClaudeCodeParticipant as unknown as ParticipantCtor,
+  CopilotParticipant as unknown as ParticipantCtor,
+  CopilotCliParticipant as unknown as ParticipantCtor,
+  CursorParticipant as unknown as ParticipantCtor,
   GitHubCopilotParticipant as unknown as ParticipantCtor,
   HermesParticipant as unknown as ParticipantCtor,
 ];
